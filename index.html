@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>Chúc mừng 20/10 💖</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
@@ -9,15 +9,26 @@
   <script src="script.js" defer></script>
 </head>
 <body>
-  <audio id="bg-music" src="SON-TUNG-MTP.mp3"></audio>
+  <audio id="bg-music" src="SON-TUNG-MTP.mp3" loop></audio>
 
   <div class="container">
     <h1 class="title">🌸 Chúc Mừng 20/10 💖</h1>
-    <p class="subtitle">✨ Bấm vào màn hình để có bất ngờ ✨</p>
+    <p class="subtitle" id="open-surprise">✨ Bấm vào màn hình để có bất ngờ ✨</p>
+  </div>
 
-    <div class="message hidden">
-      <p>🌼 Chúc bạn luôn xinh đẹp, rạng rỡ như những bông hoa! 💐<br>
-         💕 Chúc ngày 20/10 tràn ngập niềm vui và yêu thương! 🌸</p>
+  <!-- Popup -->
+  <div id="message-box" class="hidden">
+    <div class="message-content">
+      <span class="close-btn">&times;</span>
+      <h2>💌 Lời chúc gửi đến bạn 🌸</h2>
+      <p>
+        Nhân ngày 20/10, chúc bạn luôn xinh đẹp rạng ngời như những bông hoa mùa xuân.  
+        Chúc cuộc sống của bạn tràn đầy tiếng cười, yêu thương và những điều ngọt ngào nhất.  
+        Mong bạn luôn tự tin, mạnh mẽ, tỏa sáng theo cách riêng của mình.  
+        Mỗi ngày trôi qua đều là một hành trình đáng nhớ và đầy ý nghĩa.  
+        Hãy luôn là chính bạn – người tuyệt vời và đặc biệt nhất.  
+        🌸💖✨
+      </p>
     </div>
   </div>
 
