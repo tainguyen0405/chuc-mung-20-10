@@ -7,38 +7,31 @@
   <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
-  <!-- Canvas cho hiệu ứng hoa rơi -->
-  <canvas id="petalCanvas"></canvas>
+  <!-- canvas chính cho petals -->
+  <canvas id="petalCanvas" aria-hidden="true"></canvas>
+  <!-- canvas phụ cho sparkles (độ sâu) -->
+  <canvas id="sparkleCanvas" aria-hidden="true"></canvas>
 
   <div class="overlay"></div>
 
-  <main class="card">
-    <div class="flower-3d">
-      <svg viewBox="0 0 120 120" width="140" height="140" class="flower-svg">
-        <g transform="translate(60,60)">
-          <g transform="rotate(0)">
-            <path d="M0,-6 C8,-18 28,-18 34,-6 C28,4 8,12 0,24 C-8,12 -28,4 -34,-6 C-28,-18 -8,-18 0,-6z" fill="#ff9fb2"/>
-          </g>
-          <g transform="rotate(45)">
-            <path d="M0,-6 C8,-18 28,-18 34,-6 C28,4 8,12 0,24 C-8,12 -28,4 -34,-6 C-28,-18 -8,-18 0,-6z" fill="#ffbfcc"/>
-          </g>
-          <g transform="rotate(90)">
-            <path d="M0,-6 C8,-18 28,-18 34,-6 C28,4 8,12 0,24 C-8,12 -28,4 -34,-6 C-28,-18 -8,-18 0,-6z" fill="#ffc7d7"/>
-          </g>
-          <circle r="10" fill="#ffd7e6" />
-        </g>
-      </svg>
+  <main class="card" role="main">
+    <!-- **flower-3d removed** per request (no flower above text) -->
+
+    <div class="title-wrap">
+      <h1 class="title" id="mainTitle">Chúc Mừng Ngày Phụ Nữ Việt Nam 20/10</h1>
+      <div class="title-reflection" aria-hidden="true">Chúc Mừng Ngày Phụ Nữ Việt Nam 20/10</div>
     </div>
 
-    <h1 class="title">💐 Chúc Mừng Ngày Phụ Nữ Việt Nam 20/10 💐</h1>
-    <p class="subtitle">Chúc bạn luôn xinh đẹp, hạnh phúc và ngập tràn yêu thương 💖</p>
+    <p class="subtitle">💖 Chúc bạn luôn xinh đẹp, hạnh phúc và ngập tràn yêu thương 💖</p>
   </main>
 
-  <!-- Nhạc nền -->
+  <!-- Audio file in music/SON-TUNG-MTP.mp3 -->
   <audio id="bgAudio" loop playsinline>
     <source src="music/SON-TUNG-MTP.mp3" type="audio/mpeg">
-    Trình duyệt không hỗ trợ audio.
   </audio>
+
+  <!-- Very subtle fallback hint (hidden unless needed) -->
+  <div id="hintTap" class="hint">Chạm màn hình để bật nhạc 🎵</div>
 
   <script src="script.js"></script>
 </body>
