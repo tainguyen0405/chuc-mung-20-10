@@ -1,94 +1,56 @@
-/* reset cơ bản */
-* { box-sizing: border-box; margin: 0; padding: 0; }
-html,body { height: 100%; }
-
-/* background */
+* { margin: 0; padding: 0; box-sizing: border-box; }
 body {
-  font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-  background: url('images/background.jpg') center/cover no-repeat fixed;
-  color: #fff;
+  font-family: "Poppins", sans-serif;
+  background: url("images/background.jpg") center/cover no-repeat fixed;
   overflow: hidden;
-  position: relative;
+  color: #fff;
 }
 
-/* canvas animation ở dưới cùng */
 canvas#animationCanvas {
   position: fixed;
-  left: 0; top: 0;
+  top: 0; left: 0;
   width: 100vw; height: 100vh;
   z-index: 0;
-  pointer-events: none; /* không chặn tương tác */
 }
 
-/* lớp overlay giúp text nổi */
 .overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.35);
+  background: rgba(0, 0, 0, 0.35);
   z-index: 1;
 }
 
-/* nội dung chính ở giữa */
 .content {
   position: relative;
   z-index: 2;
-  min-height: 100vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
-  gap: 8px;
   justify-content: center;
   align-items: center;
   text-align: center;
   padding: 2rem;
 }
 
-/* tiêu đề */
 .title {
-  font-size: clamp(1.6rem, 3.5vw, 3rem);
+  font-size: clamp(1.8rem, 3vw, 3rem);
+  text-shadow: 0 0 20px #ff77aa;
   color: #ffdff0;
-  text-shadow: 0 6px 24px rgba(255, 105, 180, 0.25), 0 0 6px rgba(255, 182, 193, 0.7);
-  letter-spacing: 1px;
-  line-height: 1.05;
-  margin-bottom: 8px;
-  animation: glow 2.5s ease-in-out infinite alternate;
+  animation: glow 3s ease-in-out infinite alternate;
 }
 
-/* phụ đề */
 .subtitle {
-  font-size: clamp(1rem, 2.2vw, 1.25rem);
-  color: rgba(255,255,255,0.92);
-  text-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  font-size: 1.2rem;
+  margin-top: 8px;
 }
 
-/* lyric */
-.lyric { font-size: clamp(0.9rem, 1.8vw, 1.05rem); color: rgba(255,255,255,0.9); }
-
-/* nút nhạc (gọn, đẹp) */
-.music-btn {
-  position: fixed;
-  top: 18px; right: 18px;
-  z-index: 3;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 56px; height: 56px;
-  border-radius: 50%;
-  border: none;
-  background: linear-gradient(135deg, rgba(255,255,255,0.18), rgba(255,255,255,0.06));
-  backdrop-filter: blur(6px);
-  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
-  cursor: pointer;
+.lyric {
+  margin-top: 8px;
+  font-style: italic;
+  opacity: 0.9;
 }
-.music-btn img { width: 28px; height: 28px; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.4)); }
 
-/* hiệu ứng tiêu đề */
 @keyframes glow {
-  from { text-shadow: 0 6px 18px rgba(255,183,197,0.25); transform: translateY(0); }
-  to   { text-shadow: 0 8px 34px rgba(255,105,180,0.35); transform: translateY(-4px); }
-}
-
-/* responsiveness */
-@media (max-width:600px) {
-  .music-btn { width: 48px; height: 48px; }
-  .title { padding: 0 12px; }
+  from { text-shadow: 0 0 8px #ff99cc, 0 0 20px #ff66aa; }
+  to   { text-shadow: 0 0 25px #ffb6c1, 0 0 40px #ff66aa; }
 }
