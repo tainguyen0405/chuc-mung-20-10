@@ -24,7 +24,7 @@ html, body {
   font-size: 3rem;
   letter-spacing: 3px;
   animation: fadeInDown 2s ease;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 
 .subtitle {
@@ -36,7 +36,7 @@ html, body {
 
 .subtitle:hover {
   transform: scale(1.1);
-  text-shadow: 0 0 15px rgba(255,255,255,0.9);
+  text-shadow: 0 0 15px rgba(255,255,255,0.8);
 }
 
 /* Popup */
@@ -60,7 +60,7 @@ html, body {
   position: relative;
   font-size: 1.1rem;
   line-height: 1.6;
-  animation: popupIn 0.7s ease;
+  animation: popupIn 0.6s ease;
 }
 
 .message-content h2 {
@@ -81,19 +81,9 @@ html, body {
   display: none;
 }
 
-.show {
-  display: flex;
-  animation: fadeIn 0.4s;
-}
-
 @keyframes fadeInDown {
   0% { opacity: 0; transform: translateY(-50px); }
   100% { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
 }
 
 @keyframes popupIn {
