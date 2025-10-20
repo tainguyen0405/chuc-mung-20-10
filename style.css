@@ -1,56 +1,99 @@
-* { margin: 0; padding: 0; box-sizing: border-box; }
+/* Reset cơ bản */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html,body { height: 100%; }
+
+/* Background */
 body {
-  font-family: "Poppins", sans-serif;
-  background: url("images/background.jpg") center/cover no-repeat fixed;
+  font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+  background: linear-gradient(180deg, #fff6f8 0%, #ffeef3 100%);
+  color: #ff2e6a;
   overflow: hidden;
-  color: #fff;
+  position: relative;
 }
 
-canvas#animationCanvas {
+/* Canvas petals dưới cùng */
+canvas#petalCanvas {
   position: fixed;
-  top: 0; left: 0;
+  left: 0; top: 0;
   width: 100vw; height: 100vh;
   z-index: 0;
+  display: block;
+  pointer-events: none;
 }
 
+/* Overlay mờ để chữ nổi */
 .overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.35);
+  background: rgba(255,255,255,0.18);
   z-index: 1;
+  backdrop-filter: blur(6px);
 }
 
-.content {
+/* Card nội dung chính */
+.card {
   position: relative;
-  z-index: 2;
-  height: 100vh;
+  z-index: 3;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  gap: 8px;
   align-items: center;
+  justify-content: center;
   text-align: center;
   padding: 2rem;
 }
 
+/* 3D flower decorative */
+.flower-3d {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%) translateY(-8vh);
+  z-index: 4;
+  width: 140px;
+  height: 140px;
+  animation: floatFlower 5s ease-in-out infinite alternate;
+  filter: drop-shadow(0 12px 24px rgba(255, 150, 190, 0.18));
+}
+.flower-svg { display: block; transform-origin: center; }
+
+/* Title */
 .title {
-  font-size: clamp(1.8rem, 3vw, 3rem);
-  text-shadow: 0 0 20px #ff77aa;
-  color: #ffdff0;
-  animation: glow 3s ease-in-out infinite alternate;
+  font-size: clamp(1.6rem, 4vw, 3rem);
+  color: #ff4b87;
+  letter-spacing: 0.6px;
+  text-shadow: 0 12px 30px rgba(255, 110, 150, 0.18);
+  transform-style: preserve-3d;
+  animation: titleFloat 6s ease-in-out infinite;
 }
 
+/* Subtitle */
 .subtitle {
-  font-size: 1.2rem;
+  font-size: clamp(1rem, 2.2vw, 1.25rem);
+  color: #ff7aa0;
   margin-top: 8px;
 }
 
+/* lyric */
 .lyric {
-  margin-top: 8px;
+  margin-top: 6px;
   font-style: italic;
-  opacity: 0.9;
+  color: rgba(255,50,110,0.9);
 }
 
-@keyframes glow {
-  from { text-shadow: 0 0 8px #ff99cc, 0 0 20px #ff66aa; }
-  to   { text-shadow: 0 0 25px #ffb6c1, 0 0 40px #ff66aa; }
+/* Animations */
+@keyframes titleFloat {
+  0% { transform: translateZ(0) translateY(0) rotateY(-6deg); }
+  50% { transform: translateZ(6px) translateY(-6px) rotateY(6deg); }
+  100% { transform: translateZ(0) translateY(0) rotateY(-6deg); }
+}
+@keyframes floatFlower {
+  0% { transform: translateX(-50%) translateY(-8vh) rotateY(-6deg); }
+  100% { transform: translateX(-50%) translateY(-11vh) rotateY(6deg); }
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .flower-3d { width: 110px; height: 110px; transform: translateX(-50%) translateY(-6vh); }
+  .title { font-size: clamp(1.25rem, 6vw, 2rem); }
 }
