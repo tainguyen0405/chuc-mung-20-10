@@ -11,7 +11,7 @@ canvas.height = window.innerHeight;
 
 /* 💖 Hiệu ứng tim rơi */
 const hearts = [];
-for (let i = 0; i < 70; i++) {
+for (let i = 0; i < 40; i++) {
   hearts.push({
     x: Math.random() * canvas.width,
     y: Math.random() * canvas.height,
@@ -374,3 +374,4 @@ const observer = new MutationObserver((mutations) => {
   });
 });
 observer.observe(document.body, { subtree: true, attributes: true });
+
