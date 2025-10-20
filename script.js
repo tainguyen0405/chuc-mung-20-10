@@ -1,3 +1,10 @@
+/* script.js - cinematic + surprise interaction
+   Features:
+   - aggressive (but polite) autoplay attempt & fade-in
+   - petals + sparkles (existing)
+   - confetti/heart burst on user tap (surprise)
+   - title shimmer animation when surprise triggers
+*/
 
 /* ---------- AUDIO logic (muted autoplay -> try unmute -> on gesture unmute immediately) ---------- */
 const audio = document.getElementById('bgAudio');
@@ -145,3 +152,142 @@ class Petal {
     ctx.scale(this.size, this.size);
     ctx.drawImage(petalImg, -petalImg.width/2, -petalImg.height/2);
     ctx.restore();
+  }
+}
+
+const layers = [
+  {depth:0.28, count: Math.max(12, Math.round(window.innerWidth/60))},
+  {depth:0.6,  count: Math.max(18, Math.round(window.innerWidth/40))},
+  {depth:0.95, count: Math.max(28, Math.round(window.innerWidth/28))}
+];
+
+let petals = [];
+function createPetals(){
+  petals = [];
+  layers.forEach(layer => {
+    for(let i=0;i<layer.count;i++) petals.push(new Petal(layer.depth));
+  });
+}
+createPetals();
+window.addEventListener('resize', ()=> { createPetals(); setupCanvas(petalCanvas); });
+
+let last = performance.now();
+function animatePetals(now){
+  const dt = now - last; last = now;
+  pctx.clearRect(0,0,petalCanvas.width, petalCanvas.height);
+  for (let p of petals){ p.update(dt); p.draw(pctx); }
+  requestAnimationFrame(animatePetals);
+}
+requestAnimationFrame(animatePetals);
+
+/* ---------- SPARKLES LAYER ---------- */
+const sparkleCanvas = document.getElementById('sparkleCanvas');
+const sctx = setupCanvas(sparkleCanvas);
+window.addEventListener('resize', ()=> setupCanvas(sparkleCanvas));
+
+class Spark {
+  constructor(){ this.reset(); }
+  reset(){ this.x = rand(0, window.innerWidth); this.y = rand(0, window.innerHeight); this.r = rand(1,5); this.alpha = rand(0.04,0.26); this.speed = rand(0.02,0.2); this.phase = rand(0,Math.PI*2); }
+  update(dt){ this.phase += this.speed * dt * 0.001; this.alpha = 0.08 + Math.sin(this.phase)*0.05; }
+  draw(ctx){ ctx.save(); ctx.globalAlpha = this.alpha; ctx.beginPath(); ctx.arc(this.x, this.y, this.r, 0, Math.PI*2); ctx.fillStyle='rgba(255,200,230,1)'; ctx.fill(); ctx.restore(); }
+}
+
+let sparks = Array.from({length: Math.max(10, Math.floor(window.innerWidth/90))}, ()=> new Spark());
+let lastS = performance.now();
+function animateSparks(now){
+  const dt = now - lastS; lastS = now;
+  sctx.clearRect(0,0,sparkleCanvas.width, sparkleCanvas.height);
+  sparks.forEach(s => { s.update(dt); s.draw(sctx); });
+  requestAnimationFrame(animateSparks);
+}
+requestAnimationFrame(animateSparks);
+
+// temporarily intensify sparks for cinematic effect
+function intensifySparks(duration=2500){
+  // add temporary extra sparks
+  const extra = Array.from({length: 30}, ()=> new Spark());
+  sparks.push(...extra);
+  setTimeout(()=> {
+    // remove extra sparks (simple approach: recreate base set)
+    sparks = sparks.slice(0, Math.max(10, Math.floor(window.innerWidth/90)));
+  }, duration);
+}
+
+/* ---------- CONFETTI / HEART BURST (on surprise) ---------- */
+const confettiCanvas = document.getElementById('confettiCanvas');
+const cctx = setupCanvas(confettiCanvas);
+window.addEventListener('resize', ()=> setupCanvas(confettiCanvas));
+
+class Confetti {
+  constructor(x,y){
+    this.x = x;
+    this.y = y;
+    this.vx = rand(-6,6);
+    this.vy = rand(-12,-4);
+    this.size = rand(6,14);
+    this.r = Math.random() * Math.PI * 2;
+    this.color = this.randColor();
+    this.life = 0;
+    this.ttl = rand(1200, 2400); // ms
+    this.shape = Math.random() > 0.6 ? 'heart' : 'rect';
+  }
+  randColor(){
+    const palette = ['#ff6fa1','#ffb3c7','#ffd6e3','#ff8fb0','#ffd1e6','#ff9fb2'];
+    return palette[Math.floor(Math.random()*palette.length)];
+  }
+  update(dt){
+    this.vy += 0.35; // gravity
+    this.x += this.vx;
+    this.y += this.vy;
+    this.r += 0.07;
+    this.life += dt;
+  }
+  draw(ctx){
+    ctx.save();
+    ctx.translate(this.x, this.y);
+    ctx.rotate(this.r);
+    ctx.globalAlpha = Math.max(0, 1 - this.life / this.ttl);
+    ctx.fillStyle = this.color;
+    if (this.shape === 'rect') {
+      ctx.fillRect(-this.size/2, -this.size/2, this.size, this.size);
+    } else {
+      // heart shape
+      ctx.beginPath();
+      const s = this.size/10;
+      ctx.moveTo(0, -s*8);
+      ctx.bezierCurveTo(-s*12, -s*14, -s*28, -s*2, 0, s*14);
+      ctx.bezierCurveTo(s*28, -s*2, s*12, -s*14, 0, -s*8);
+      ctx.fill();
+    }
+    ctx.restore();
+  }
+}
+
+let confettis = [];
+function confettiBurst(pos=null){
+  const cx = pos ? pos.x : window.innerWidth/2;
+  const cy = pos ? pos.y : window.innerHeight/2;
+  const count = 40 + Math.floor(Math.random()*30);
+  for (let i=0;i<count;i++) confettis.push(new Confetti(cx + rand(-40,40), cy + rand(-20,20)));
+  // animate
+  let lastC = performance.now();
+  function loop(now){
+    const dt = now - lastC; lastC = now;
+    cctx.clearRect(0,0,confettiCanvas.width, confettiCanvas.height);
+    confettis.forEach(cf => { cf.update(dt); cf.draw(cctx); });
+    confettis = confettis.filter(cf => cf.life < cf.ttl);
+    if (confettis.length > 0) requestAnimationFrame(loop);
+    else cctx.clearRect(0,0,confettiCanvas.width, confettiCanvas.height);
+  }
+  requestAnimationFrame(loop);
+}
+
+/* ---------- finished ---------- */
+/* small helper to ensure canvases sizing remains correct when devicePixelRatio changes */
+let dpiLast = window.devicePixelRatio;
+setInterval(()=> {
+  if (window.devicePixelRatio !== dpiLast) {
+    dpiLast = window.devicePixelRatio;
+    setupCanvas(petalCanvas); setupCanvas(sparkleCanvas); setupCanvas(confettiCanvas);
+  }
+}, 1000);
