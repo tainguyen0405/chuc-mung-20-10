@@ -1,37 +1,18 @@
 const messageBox = document.getElementById("message-box");
 const closeBtn = document.querySelector(".close-btn");
 const bgMusic = document.getElementById("bg-music");
-const popupSound = document.getElementById("popup-sound");
-const typedText = document.getElementById("typed-text");
 
-const messageLines = [
-  "Nhân ngày 20/10, chúc bạn luôn rạng rỡ như những bông hoa xinh đẹp nhất 💐.",
-  "Cuộc sống của bạn luôn tràn đầy niềm vui, tiếng cười và hạnh phúc 💖.",
-  "Mong bạn luôn tự tin, mạnh mẽ và tỏa sáng theo cách riêng của mình ✨.",
-  "Mỗi ngày đều đáng yêu và đầy ắp yêu thương 💞.",
-  "Hãy luôn là chính bạn – người tuyệt vời nhất! 🌸"
-];
+// Ẩn hộp thư lúc đầu
+messageBox.classList.add("hidden");
 
-// typing effect
-async function typeMessage() {
-  typedText.textContent = "";
-  for (let line of messageLines) {
-    for (let char of line) {
-      typedText.textContent += char;
-      await new Promise(r => setTimeout(r, 40));
-    }
-    typedText.textContent += "\n";
-    await new Promise(r => setTimeout(r, 300));
-  }
-  typedText.style.borderRight = "none";
-}
-
-// Khi bấm vào màn hình → mở hộp thư
+// Khi bấm vào màn hình -> hiện hộp thư
 document.body.addEventListener("click", () => {
-  if (messageBox.classList.contains("hidden")) {
-    popupSound.play();
-    messageBox.classList.remove("hidden");
-    typeMessage();
+  messageBox.classList.remove("hidden");
+
+  // Khi user click lần đầu, phát nhạc
+  if (bgMusic.paused) {
+    bgMusic.volume = 0.7;
+    bgMusic.play().catch(() => {});
   }
 });
 
@@ -41,16 +22,14 @@ closeBtn.addEventListener("click", (e) => {
   messageBox.classList.add("hidden");
 });
 
-// Phát nhạc tự động
+// Tự động phát nhạc khi có thể (nếu trình duyệt cho phép)
 window.addEventListener("load", () => {
-  const playMusic = () => {
-    bgMusic.volume = 0.7;
-    bgMusic.play().catch(() => {});
-  };
-
-  // Cố gắng autoplay
+  bgMusic.volume = 0.7;
   bgMusic.play().catch(() => {
-    document.body.addEventListener("click", playMusic, { once: true });
+    // Nếu bị chặn thì sẽ phát khi người dùng click
+    document.body.addEventListener("click", () => {
+      bgMusic.play().catch(() => {});
+    }, { once: true });
   });
 });
 
@@ -88,7 +67,7 @@ class Flower {
   }
 }
 
-for (let i = 0; i < 45; i++) petals.push(new Flower());
+for (let i = 0; i < 40; i++) petals.push(new Flower());
 
 function animate() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
