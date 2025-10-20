@@ -51,12 +51,7 @@ canvas{position:fixed;left:0;top:0;width:100vw;height:100vh;pointer-events:none;
   will-change: transform, filter, box-shadow;
 }
 
-/* 3D parallax on hover/mousemove */
-.titleWrapHover {
-  transform: translateZ(10px);
-}
-
-/* shimmer effect when surprise triggers */
+/* shimmer: applied when surprise triggers */
 .title.shimmer{
   animation: titleSurprise 900ms cubic-bezier(.2,.9,.3,1) both;
   box-shadow: 0 50px 140px rgba(255,60,130,0.24), 0 12px 36px rgba(0,0,0,0.08);
@@ -66,7 +61,7 @@ canvas{position:fixed;left:0;top:0;width:100vw;height:100vh;pointer-events:none;
 /* reflection */
 .title-reflection{
   margin-top:10px;
-  font-size:clamp(1.8rem,6.5vw,5rem);
+  font-size:clamp(1.9rem,6.5vw,5rem);
   color:rgba(255,80,140,0.10);
   transform:translateY(10px) scaleY(-1);
   filter: blur(6px) opacity(.85);
@@ -89,7 +84,7 @@ canvas{position:fixed;left:0;top:0;width:100vw;height:100vh;pointer-events:none;
 /* subtitle */
 .subtitle{ color: rgba(255,50,110,0.96); font-size: clamp(0.95rem,1.5vw,1.3rem); margin-top:14px; text-shadow: 0 6px 20px rgba(255,150,180,0.06); }
 
-/* tap hint (button styled) */
+/* tap hint (button) */
 .tap-hint{
   margin-top:18px; font-size:1rem; color: #fff; background: linear-gradient(90deg, rgba(255,60,130,0.95), rgba(255,40,110,0.88));
   padding:10px 18px; border-radius:999px; border:none; cursor:pointer; box-shadow: 0 12px 30px rgba(255,40,110,0.18);
