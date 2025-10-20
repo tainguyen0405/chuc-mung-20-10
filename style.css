@@ -24,17 +24,19 @@ html, body {
   font-size: 3rem;
   letter-spacing: 3px;
   animation: fadeInDown 2s ease;
+  margin-bottom: 20px;
 }
 
 .subtitle {
   font-size: 1.4rem;
-  margin-top: 15px;
   cursor: pointer;
   opacity: 0.9;
-  transition: transform 0.3s;
+  transition: transform 0.3s, text-shadow 0.3s;
 }
+
 .subtitle:hover {
   transform: scale(1.1);
+  text-shadow: 0 0 15px rgba(255,255,255,0.9);
 }
 
 /* Popup */
@@ -78,6 +80,11 @@ html, body {
 
 .hidden {
   display: none;
+}
+
+.show {
+  display: flex;
+  animation: fadeIn 0.4s;
 }
 
 @keyframes fadeInDown {
