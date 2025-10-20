@@ -1,3 +1,4 @@
+/* Reset cơ bản */
 * {
   margin: 0;
   padding: 0;
@@ -7,31 +8,34 @@
 html, body {
   height: 100%;
   font-family: 'Be Vietnam Pro', sans-serif;
-  background: radial-gradient(ellipse at center, #ffdde1 0%, #ee9ca7 100%);
+  background: radial-gradient(circle at center, #ffdde1 0%, #ee9ca7 100%);
   overflow: hidden;
+  color: white;
 }
 
+/* Khung trung tâm */
 .container {
   text-align: center;
-  position: relative;
-  top: 40%;
-  transform: translateY(-40%);
-  color: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   text-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  z-index: 2;
+  animation: fadeIn 2s ease;
 }
 
 .title {
   font-size: 3rem;
-  letter-spacing: 3px;
-  animation: fadeInDown 2s ease;
+  letter-spacing: 2px;
   margin-bottom: 15px;
 }
 
 .subtitle {
-  font-size: 1.4rem;
+  font-size: 1.3rem;
+  opacity: 0.95;
   cursor: pointer;
-  opacity: 0.9;
-  transition: transform 0.3s, text-shadow 0.3s;
+  transition: transform 0.3s ease, text-shadow 0.3s ease;
 }
 
 .subtitle:hover {
@@ -39,33 +43,45 @@ html, body {
   text-shadow: 0 0 15px rgba(255,255,255,0.8);
 }
 
-/* Popup */
+/* Hiệu ứng fade in cho tiêu đề */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translate(-50%, -60%); }
+  to { opacity: 1; transform: translate(-50%, -50%); }
+}
+
+/* Popup lời chúc */
 #message-box {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.6);
+  background: rgba(0, 0, 0, 0.6);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 3;
+  z-index: 5;
 }
 
 .message-content {
   background: white;
   color: #444;
-  max-width: 500px;
-  padding: 30px;
-  border-radius: 15px;
+  max-width: 520px;
+  width: 90%;
+  padding: 30px 25px;
+  border-radius: 20px;
   text-align: center;
-  position: relative;
-  font-size: 1.1rem;
   line-height: 1.6;
-  animation: popupIn 0.6s ease;
+  position: relative;
+  animation: popupIn 0.7s ease;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
 }
 
 .message-content h2 {
-  margin-bottom: 15px;
   color: #ff6699;
+  margin-bottom: 15px;
+  font-size: 1.4rem;
+}
+
+.message-content p {
+  font-size: 1.05rem;
 }
 
 .close-btn {
@@ -73,24 +89,33 @@ html, body {
   top: 10px;
   right: 15px;
   font-size: 24px;
-  cursor: pointer;
   color: #ff6699;
+  cursor: pointer;
+  transition: transform 0.3s;
 }
 
+.close-btn:hover {
+  transform: scale(1.3);
+}
+
+/* Ẩn khi chưa hiện */
 .hidden {
   display: none;
 }
 
-@keyframes fadeInDown {
-  0% { opacity: 0; transform: translateY(-50px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
-
+/* Hiệu ứng mở hộp thư */
 @keyframes popupIn {
-  from { transform: scale(0.7) rotateX(60deg); opacity: 0; }
-  to { transform: scale(1) rotateX(0deg); opacity: 1; }
+  0% {
+    transform: scale(0.7) rotateX(60deg);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1) rotateX(0deg);
+    opacity: 1;
+  }
 }
 
+/* Hiệu ứng hoa rơi */
 #flower-canvas {
   position: fixed;
   inset: 0;
