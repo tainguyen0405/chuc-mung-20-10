@@ -1,42 +1,60 @@
 const messageBox = document.getElementById("message-box");
 const closeBtn = document.querySelector(".close-btn");
 const bgMusic = document.getElementById("bg-music");
+const popupSound = document.getElementById("popup-sound");
+const typedText = document.getElementById("typed-text");
 
-// Ẩn hộp thư lúc đầu
-messageBox.classList.add("hidden");
+const messageLines = [
+  "Nhân ngày 20/10, chúc bạn luôn rạng rỡ như những bông hoa xinh đẹp nhất 💐.",
+  "Cuộc sống của bạn luôn tràn đầy niềm vui, tiếng cười và hạnh phúc 💖.",
+  "Mong bạn luôn tự tin, mạnh mẽ và tỏa sáng theo cách riêng của mình ✨.",
+  "Mỗi ngày đều đáng yêu và đầy ắp yêu thương 💞.",
+  "Hãy luôn là chính bạn – người tuyệt vời nhất! 🌸"
+];
 
-// Khi bấm vào màn hình -> hiện hộp thư
+// typing effect
+async function typeMessage() {
+  typedText.textContent = "";
+  for (let line of messageLines) {
+    for (let char of line) {
+      typedText.textContent += char;
+      await new Promise(r => setTimeout(r, 40));
+    }
+    typedText.textContent += "\n";
+    await new Promise(r => setTimeout(r, 300));
+  }
+  typedText.style.borderRight = "none";
+}
+
+// Khi bấm vào màn hình → mở hộp thư
 document.body.addEventListener("click", () => {
-  messageBox.classList.remove("hidden");
+  if (messageBox.classList.contains("hidden")) {
+    popupSound.play();
+    messageBox.classList.remove("hidden");
+    typeMessage();
+  }
 });
 
-// Khi nhấn dấu X -> đóng hộp thư
+// Đóng hộp thư
 closeBtn.addEventListener("click", (e) => {
   e.stopPropagation();
   messageBox.classList.add("hidden");
 });
 
-// Tự động bật nhạc khi mở trang
+// Phát nhạc tự động
 window.addEventListener("load", () => {
-  const tryPlay = () => {
-    bgMusic.muted = false;
+  const playMusic = () => {
+    bgMusic.volume = 0.7;
     bgMusic.play().catch(() => {});
   };
 
-  // Thử autoplay
-  bgMusic.muted = true;
-  bgMusic.play().then(() => {
-    setTimeout(() => {
-      bgMusic.muted = false;
-      bgMusic.play();
-    }, 300);
-  }).catch(() => {
-    // Nếu bị chặn autoplay, bật sau khi user bấm
-    document.body.addEventListener("click", tryPlay, { once: true });
+  // Cố gắng autoplay
+  bgMusic.play().catch(() => {
+    document.body.addEventListener("click", playMusic, { once: true });
   });
 });
 
-// Hiệu ứng hoa rơi
+// Hoa rơi 🌸
 const canvas = document.getElementById('flower-canvas');
 const ctx = canvas.getContext('2d');
 canvas.width = window.innerWidth;
@@ -46,9 +64,7 @@ const emojis = ["🌸", "💖", "🌼", "✨", "🌷", "🌹"];
 const petals = [];
 
 class Flower {
-  constructor() {
-    this.reset();
-  }
+  constructor() { this.reset(); }
   reset() {
     this.x = Math.random() * canvas.width;
     this.y = Math.random() * -canvas.height;
@@ -72,14 +88,11 @@ class Flower {
   }
 }
 
-for (let i = 0; i < 40; i++) petals.push(new Flower());
+for (let i = 0; i < 45; i++) petals.push(new Flower());
 
 function animate() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  petals.forEach(f => {
-    f.update();
-    f.draw();
-  });
+  petals.forEach(f => { f.update(); f.draw(); });
   requestAnimationFrame(animate);
 }
 animate();
