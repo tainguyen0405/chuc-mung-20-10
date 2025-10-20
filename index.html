@@ -3,52 +3,38 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Chúc Mừng 20/10 — Cinematic</title>
-
-  <!-- font -->
+  <title>Chúc Mừng 20/10 💐</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=Sriracha&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
-  <!-- Canvas layers -->
   <canvas id="petalCanvas" aria-hidden="true"></canvas>
-  <canvas id="sparkleCanvas" aria-hidden="true"></canvas>
-  <canvas id="confettiCanvas" aria-hidden="true"></canvas>
+  <div class="overlay"></div>
 
-  <!-- overlays -->
-  <div class="vignette" aria-hidden="true"></div>
-  <div class="lensflare" id="lensflare" aria-hidden="true"></div>
-
-  <!-- main UI -->
-  <main class="card" role="main" id="mainCard">
-    <div class="title-wrap" id="titleWrap">
-      <h1 class="title" id="mainTitle">Chúc Mừng Ngày Phụ Nữ Việt Nam 20/10</h1>
-      <div class="title-reflection" aria-hidden="true">Chúc Mừng Ngày Phụ Nữ Việt Nam 20/10</div>
+  <main class="card" role="main">
+    <div class="flower-3d" aria-hidden="true">
+      <svg viewBox="0 0 120 120" width="140" height="140" class="flower-svg">
+        <g transform="translate(60,60)">
+          <g transform="rotate(0)"><path d="M0,-6 C8,-18 28,-18 34,-6 C28,4 8,12 0,24 C-8,12 -28,4 -34,-6 C-28,-18 -8,-18 0,-6z" fill="#ff9fb2"/></g>
+          <g transform="rotate(45)"><path d="M0,-6 C8,-18 28,-18 34,-6 C28,4 8,12 0,24 C-8,12 -28,4 -34,-6 C-28,-18 -8,-18 0,-6z" fill="#ffbfcc"/></g>
+          <g transform="rotate(90)"><path d="M0,-6 C8,-18 28,-18 34,-6 C28,4 8,12 0,24 C-8,12 -28,4 -34,-6 C-28,-18 -8,-18 0,-6z" fill="#ffc7d7"/></g>
+          <circle r="10" fill="#ffd7e6" />
+        </g>
+      </svg>
     </div>
 
-    <!-- hint -->
-    <button id="tapHint" class="tap-hint">Bấm vào màn hình để có bất ngờ ✨</button>
+    <h1 class="title">🌸 Chúc Mừng Ngày Phụ Nữ Việt Nam 20/10 🌸</h1>
+    <p class="subtitle">✨ Bấm vào màn hình để nhận điều bất ngờ ✨</p>
+    <div id="message" class="hidden">
+      <p>💐 Chúc bạn luôn xinh đẹp, hạnh phúc và ngập tràn yêu thương 💖</p>
+    </div>
   </main>
 
-  <!-- surprise card (hidden until triggered) -->
-  <div id="surpriseOverlay" class="surprise-overlay" aria-hidden="true">
-    <div class="surprise-card" id="surpriseCard" role="dialog" aria-labelledby="surpriseTitle">
-      <button class="close-btn" id="closeSurprise" aria-label="Đóng">&times;</button>
-      <h2 id="surpriseTitle" class="surprise-title">Lời chúc dành cho bạn</h2>
-      <p id="surpriseMessage" class="surprise-message" aria-live="polite"></p>
-      <div class="surprise-actions">
-        <button id="shareBtn" class="action-btn">Sao chép lời chúc</button>
-        <button id="closeBtn" class="action-btn">Đóng</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- audio (kept but no aggressive autoplay logic) -->
-  <!-- If you want music, put music/SON-TUNG-MTP.mp3 in repo; it will play on user gesture -->
-  <audio id="bgAudio" loop playsinline preload="auto">
+  <audio id="bgAudio" loop playsinline muted>
     <source src="music/SON-TUNG-MTP.mp3" type="audio/mpeg">
+    Trình duyệt của bạn không hỗ trợ audio.
   </audio>
 
   <script src="script.js"></script>
