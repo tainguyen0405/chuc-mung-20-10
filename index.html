@@ -1,47 +1,26 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Chúc Mừng 20/10 💐</title>
-  <!-- Font chữ đẹp hỗ trợ tiếng Việt -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Sriracha&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css"/>
+  <meta charset="UTF-8" />
+  <title>Chúc mừng 20/10 💖</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;700&display=swap" rel="stylesheet">
+  <script src="script.js" defer></script>
 </head>
 <body>
-  <!-- Canvas hiệu ứng rơi -->
-  <canvas id="petalCanvas" aria-hidden="true"></canvas>
-  <div class="overlay"></div>
+  <audio id="bg-music" src="SON-TUNG-MTP.mp3"></audio>
 
-  <main class="card" role="main">
-    <!-- Hoa xoay 3D -->
-    <div class="flower-3d" aria-hidden="true">
-      <svg viewBox="0 0 120 120" width="140" height="140" class="flower-svg">
-        <g transform="translate(60,60)">
-          <g transform="rotate(0)"><path d="M0,-6 C8,-18 28,-18 34,-6 C28,4 8,12 0,24 C-8,12 -28,4 -34,-6 C-28,-18 -8,-18 0,-6z" fill="#ff9fb2"/></g>
-          <g transform="rotate(45)"><path d="M0,-6 C8,-18 28,-18 34,-6 C28,4 8,12 0,24 C-8,12 -28,4 -34,-6 C-28,-18 -8,-18 0,-6z" fill="#ffbfcc"/></g>
-          <g transform="rotate(90)"><path d="M0,-6 C8,-18 28,-18 34,-6 C28,4 8,12 0,24 C-8,12 -28,4 -34,-6 C-28,-18 -8,-18 0,-6z" fill="#ffc7d7"/></g>
-          <circle r="10" fill="#ffd7e6" />
-        </g>
-      </svg>
+  <div class="container">
+    <h1 class="title">🌸 Chúc Mừng 20/10 💖</h1>
+    <p class="subtitle">✨ Bấm vào màn hình để có bất ngờ ✨</p>
+
+    <div class="message hidden">
+      <p>🌼 Chúc bạn luôn xinh đẹp, rạng rỡ như những bông hoa! 💐<br>
+         💕 Chúc ngày 20/10 tràn ngập niềm vui và yêu thương! 🌸</p>
     </div>
+  </div>
 
-    <h1 class="title">🌸 Chúc Mừng Ngày Phụ Nữ Việt Nam 20/10 🌸</h1>
-    <p class="subtitle">✨ Bấm vào màn hình để nhận điều bất ngờ ✨</p>
-
-    <div id="message" class="hidden">
-      <p>💐 Chúc bạn luôn xinh đẹp, hạnh phúc và ngập tràn yêu thương 💖</p>
-    </div>
-  </main>
-
-  <!-- Nhạc nền -->
-  <audio id="bgAudio" loop playsinline muted>
-    <source src="music/SON-TUNG-MTP.mp3" type="audio/mpeg">
-    Trình duyệt của bạn không hỗ trợ audio.
-  </audio>
-
-  <script src="script.js"></script>
+  <canvas id="flower-canvas"></canvas>
 </body>
 </html>
