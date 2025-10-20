@@ -4,16 +4,19 @@
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>Chúc Mừng 20/10 💐</title>
+  <!-- Font chữ đẹp hỗ trợ tiếng Việt -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Sriracha&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
+  <!-- Canvas hiệu ứng rơi -->
   <canvas id="petalCanvas" aria-hidden="true"></canvas>
   <div class="overlay"></div>
 
   <main class="card" role="main">
+    <!-- Hoa xoay 3D -->
     <div class="flower-3d" aria-hidden="true">
       <svg viewBox="0 0 120 120" width="140" height="140" class="flower-svg">
         <g transform="translate(60,60)">
@@ -27,11 +30,13 @@
 
     <h1 class="title">🌸 Chúc Mừng Ngày Phụ Nữ Việt Nam 20/10 🌸</h1>
     <p class="subtitle">✨ Bấm vào màn hình để nhận điều bất ngờ ✨</p>
+
     <div id="message" class="hidden">
       <p>💐 Chúc bạn luôn xinh đẹp, hạnh phúc và ngập tràn yêu thương 💖</p>
     </div>
   </main>
 
+  <!-- Nhạc nền -->
   <audio id="bgAudio" loop playsinline muted>
     <source src="music/SON-TUNG-MTP.mp3" type="audio/mpeg">
     Trình duyệt của bạn không hỗ trợ audio.
