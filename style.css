@@ -528,3 +528,25 @@ canvas {
   50% { background-position: 100% 50%; filter: brightness(1.2); }
   100% { background-position: 0% 50%; filter: brightness(1); }
 }
+
+@media (max-width: 768px) {
+  #message h1 {
+    font-size: 1.6rem;
+    letter-spacing: 1px;
+  }
+  #tagline {
+    font-size: 1rem;
+  }
+  #flowerBtn, #hintBtn {
+    font-size: 0.9rem;
+    padding: 8px 18px;
+  }
+  .envelope {
+    width: 220px;
+    height: 140px;
+  }
+  .letter p {
+    font-size: 1rem;
+  }
+}
+
