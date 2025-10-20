@@ -3,29 +3,27 @@ const messageBox = document.getElementById("message-box");
 const closeBtn = document.querySelector(".close-btn");
 const bgMusic = document.getElementById("bg-music");
 
-// Ban đầu hộp thư ẩn
+// 🔹 Ban đầu ẩn hộp thư
 messageBox.classList.add("hidden");
 
-// Khi nhấn dòng chữ -> hiện hộp thư
+// 🔹 Khi nhấn dòng chữ -> hiện hộp thư
 openBtn.addEventListener("click", () => {
   messageBox.classList.remove("hidden");
-  messageBox.classList.add("show");
 });
 
-// Khi nhấn dấu X -> ẩn hộp thư
+// 🔹 Khi nhấn dấu X -> đóng hộp thư
 closeBtn.addEventListener("click", () => {
-  messageBox.classList.remove("show");
-  setTimeout(() => messageBox.classList.add("hidden"), 400);
+  messageBox.classList.add("hidden");
 });
 
-// Tự động phát nhạc khi mở trang (fix chuẩn cho Chrome, Safari, Edge)
+// 🔹 Tự động phát nhạc khi mở web (fix cho Chrome, Safari, Edge)
 window.addEventListener("load", () => {
   const tryPlay = () => {
     bgMusic.muted = false;
     bgMusic.play().catch(() => {});
   };
 
-  // Thử bật nhạc im lặng trước để “unlock”
+  // Cố gắng bật nhạc tự động
   bgMusic.muted = true;
   bgMusic.play().then(() => {
     setTimeout(() => {
@@ -33,27 +31,30 @@ window.addEventListener("load", () => {
       bgMusic.play();
     }, 300);
   }).catch(() => {
+    // Nếu trình duyệt chặn autoplay → bật sau khi user click
     document.body.addEventListener("click", tryPlay, { once: true });
   });
 });
 
-// Hiệu ứng hoa rơi
+// 🔹 Hiệu ứng hoa rơi
 const canvas = document.getElementById('flower-canvas');
 const ctx = canvas.getContext('2d');
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-const flowerEmoji = ["🌸", "💖", "🌼", "✨", "🌷", "🌹"];
-const flowers = [];
+const emojis = ["🌸", "💖", "🌼", "✨", "🌷", "🌹"];
+const petals = [];
 
 class Flower {
-  constructor() { this.reset(); }
+  constructor() {
+    this.reset();
+  }
   reset() {
     this.x = Math.random() * canvas.width;
     this.y = Math.random() * -canvas.height;
     this.size = 20 + Math.random() * 25;
     this.speed = 1 + Math.random() * 2;
-    this.char = flowerEmoji[Math.floor(Math.random() * flowerEmoji.length)];
+    this.char = emojis[Math.floor(Math.random() * emojis.length)];
     this.rotation = Math.random() * 360;
   }
   update() {
@@ -71,11 +72,14 @@ class Flower {
   }
 }
 
-for (let i = 0; i < 40; i++) flowers.push(new Flower());
+for (let i = 0; i < 40; i++) petals.push(new Flower());
 
 function animate() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  flowers.forEach(f => { f.update(); f.draw(); });
+  petals.forEach(f => {
+    f.update();
+    f.draw();
+  });
   requestAnimationFrame(animate);
 }
 animate();
