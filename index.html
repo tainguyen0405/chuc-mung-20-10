@@ -3,34 +3,41 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>💖Chúc Mừng 20/10💖</title>
+  <title>Chúc Mừng 20/10 — Cinematic</title>
 
+  <!-- preload font & audio -->
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="preload" href="music/SON-TUNG-MTP.mp3" as="audio">
 
   <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
+  <!-- canvases -->
   <canvas id="petalCanvas" aria-hidden="true"></canvas>
   <canvas id="sparkleCanvas" aria-hidden="true"></canvas>
   <canvas id="confettiCanvas" aria-hidden="true"></canvas>
 
-  <div class="overlay" aria-hidden="true"></div>
+  <!-- cinematic overlays -->
+  <div class="vignette" aria-hidden="true"></div>
+  <div class="lensflare" aria-hidden="true"></div>
 
   <main class="card" role="main" id="mainCard">
-    <div class="title-wrap">
+    <div class="title-wrap" id="titleWrap">
       <h1 class="title" id="mainTitle">Chúc Mừng Ngày Phụ Nữ Việt Nam 20/10</h1>
       <div class="title-reflection" aria-hidden="true">Chúc Mừng Ngày Phụ Nữ Việt Nam 20/10</div>
     </div>
 
-    <p class="subtitle">💖Chúc bạn luôn xinh đẹp, hạnh phúc và ngập tràn yêu thương 💖</p>
+    <p class="subtitle">Chúc bạn luôn xinh đẹp, hạnh phúc và ngập tràn yêu thương 💖</p>
 
-    <!-- NEW: interactive instruction -->
-    <p id="tapHint" class="tap-hint">Bấm vào màn hình để có bất ngờ ✨</p>
+    <!-- interactive instruction (gesture) -->
+    <button id="tapHint" class="tap-hint" aria-pressed="false">Bấm vào màn hình để có bất ngờ ✨</button>
   </main>
 
-  <audio id="bgAudio" loop playsinline>
+  <!-- audio element -->
+  <audio id="bgAudio" loop playsinline preload="auto" crossorigin="anonymous">
     <source src="music/SON-TUNG-MTP.mp3" type="audio/mpeg">
+    Trình duyệt không hỗ trợ audio.
   </audio>
 
   <script src="script.js"></script>
