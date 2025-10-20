@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="vi">
 <head>
   <meta charset="utf-8"/>
@@ -9,28 +9,16 @@
 <body>
   <!-- Canvas cho petals -->
   <canvas id="petalCanvas" aria-hidden="true"></canvas>
-
-  <!-- Overlay để chữ nổi lên -->
   <div class="overlay"></div>
 
-  <!-- Nội dung chính -->
   <main class="card" role="main">
-    <!-- small decorative inline svg flower (no external image dependency) -->
     <div class="flower-3d" aria-hidden="true">
+      <!-- inline SVG flower (no external image needed) -->
       <svg viewBox="0 0 120 120" width="140" height="140" class="flower-svg">
         <g transform="translate(60,60)">
-          <g class="petal-s" transform="rotate(0)">
-            <path d="M0,-6 C8,-18 28,-18 34,-6 C28,4 8,12 0,24 C-8,12 -28,4 -34,-6 C-28,-18 -8,-18 0,-6z"
-                  fill="#ff9fb2" />
-          </g>
-          <g class="petal-s" transform="rotate(45)">
-            <path d="M0,-6 C8,-18 28,-18 34,-6 C28,4 8,12 0,24 C-8,12 -28,4 -34,-6 C-28,-18 -8,-18 0,-6z"
-                  fill="#ffbfcc" />
-          </g>
-          <g class="petal-s" transform="rotate(90)">
-            <path d="M0,-6 C8,-18 28,-18 34,-6 C28,4 8,12 0,24 C-8,12 -28,4 -34,-6 C-28,-18 -8,-18 0,-6z"
-                  fill="#ffc7d7" />
-          </g>
+          <g transform="rotate(0)"><path d="M0,-6 C8,-18 28,-18 34,-6 C28,4 8,12 0,24 C-8,12 -28,4 -34,-6 C-28,-18 -8,-18 0,-6z" fill="#ff9fb2"/></g>
+          <g transform="rotate(45)"><path d="M0,-6 C8,-18 28,-18 34,-6 C28,4 8,12 0,24 C-8,12 -28,4 -34,-6 C-28,-18 -8,-18 0,-6z" fill="#ffbfcc"/></g>
+          <g transform="rotate(90)"><path d="M0,-6 C8,-18 28,-18 34,-6 C28,4 8,12 0,24 C-8,12 -28,4 -34,-6 C-28,-18 -8,-18 0,-6z" fill="#ffc7d7"/></g>
           <circle r="10" fill="#ffd7e6" />
         </g>
       </svg>
@@ -40,10 +28,10 @@
     <p class="subtitle">Chúc bạn luôn xinh đẹp, hạnh phúc và ngập tràn yêu thương 💖</p>
   </main>
 
-  <!-- Audio: dùng file local trong repo: music/SON-TUNG-MTP.mp3 -->
+  <!-- Audio: đặt file MP3 vào thư mục music/ với đúng tên dưới -->
   <audio id="bgAudio" loop playsinline muted>
-    <source src="music/SON-TUNG-MTP" type="audio/mpeg">
-    Your browser does not support the audio element.
+    <source src="music/SON-TUNG-MTP.mp3" type="audio/mpeg">
+    Trình duyệt của bạn không hỗ trợ audio.
   </audio>
 
   <script src="script.js"></script>
