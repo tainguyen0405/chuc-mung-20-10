@@ -1,12 +1,3 @@
-// script.js - aggressive autoplay strategy + petal canvas kept intact
-
-/* -------- AUDIO AUTO-PLAY / UNMUTE STRATEGY --------
-  Steps:
-   1) Start audio element muted and play (muted autoplay usually allowed).
-   2) After a short delay try to set muted=false and fade volume in.
-   3) If blocked, retry unmute periodically and on focus/visibility events.
-   4) Keep retrying for a limited time (e.g. 20s) to maximize chance.
-*/
 
 const audio = document.getElementById('bgAudio');
 const MAX_RETRY_MS = 20000;    // total retry window
@@ -190,3 +181,4 @@ function animate(now){
   requestAnimationFrame(animate);
 }
 requestAnimationFrame(animate);
+
