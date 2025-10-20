@@ -1,123 +1,51 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>💐 Chúc Mừng Ngày Phụ Nữ Việt Nam 20/10 💐</title>
-
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      overflow: hidden;
-      background: linear-gradient(to bottom right, #ffe6ec, #fff7fa);
-      font-family: 'Poppins', sans-serif;
-      text-align: center;
-      height: 100vh;
-      color: #ff6699;
-      perspective: 1000px;
-    }
-
-    h1 {
-      margin-top: 20vh;
-      font-size: 2.8em;
-      text-shadow: 0 0 25px rgba(255, 150, 190, 0.8);
-      animation: float3d 4s ease-in-out infinite alternate;
-    }
-
-    p {
-      font-size: 1.3em;
-      margin-top: 20px;
-      color: #ff7faa;
-      text-shadow: 0 0 12px rgba(255, 150, 190, 0.7);
-      animation: glow 3s ease-in-out infinite alternate;
-    }
-
-    @keyframes float3d {
-      from { transform: rotateY(-8deg) translateY(0); }
-      to { transform: rotateY(8deg) translateY(-10px); }
-    }
-
-    @keyframes glow {
-      from { opacity: 0.8; }
-      to { opacity: 1; }
-    }
-
-    .flower3d {
-      position: absolute;
-      bottom: 10vh;
-      left: 50%;
-      width: 180px;
-      transform: translateX(-50%);
-      animation: floatFlower 6s ease-in-out infinite alternate;
-      filter: drop-shadow(0 0 12px #ff99cc);
-    }
-
-    @keyframes floatFlower {
-      0% { transform: translateX(-50%) translateY(0) rotateY(0deg); }
-      100% { transform: translateX(-50%) translateY(-15px) rotateY(10deg); }
-    }
-
-    /* Hoa rơi */
-    .petal {
-      position: absolute;
-      top: -10vh;
-      width: 18px;
-      height: 18px;
-      background: radial-gradient(circle at 30% 30%, #ff7faf, #ff9fba, #ffd1dc);
-      border-radius: 150% 0 150% 0;
-      transform: rotate(45deg);
-      opacity: 0.9;
-      animation: fall 10s linear infinite;
-    }
-
-    @keyframes fall {
-      0% {
-        transform: translateY(0) rotateZ(0deg) rotateX(0deg);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(110vh) rotateZ(360deg) rotateX(180deg);
-        opacity: 0;
-      }
-    }
-  </style>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Chúc Mừng 20/10 🌸</title>
+  <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
+  <!-- Canvas cho petals -->
+  <canvas id="petalCanvas" aria-hidden="true"></canvas>
 
-  <h1>💖 Chúc Mừng Ngày Phụ Nữ Việt Nam 20/10 💖</h1>
-  <p>💐 Chúc bạn luôn xinh đẹp, hạnh phúc và được yêu thương mỗi ngày 💐<br>🎶</p>
-  <img src="https://i.imgur.com/B2qN4uY.png" alt="Flower" class="flower3d" />
+  <!-- Overlay để chữ nổi lên -->
+  <div class="overlay"></div>
 
-  <!-- Nhạc tự động phát -->
-  <audio id="bg-music" loop>
-    <source src="https://docs.google.com/uc?export=download&id=1dAhZQAh9tUMIebzwXQdK4Q-FSkR0X0d8" type="audio/mp3">
+  <!-- Nội dung chính -->
+  <main class="card" role="main">
+    <!-- small decorative inline svg flower (no external image dependency) -->
+    <div class="flower-3d" aria-hidden="true">
+      <svg viewBox="0 0 120 120" width="140" height="140" class="flower-svg">
+        <g transform="translate(60,60)">
+          <g class="petal-s" transform="rotate(0)">
+            <path d="M0,-6 C8,-18 28,-18 34,-6 C28,4 8,12 0,24 C-8,12 -28,4 -34,-6 C-28,-18 -8,-18 0,-6z"
+                  fill="#ff9fb2" />
+          </g>
+          <g class="petal-s" transform="rotate(45)">
+            <path d="M0,-6 C8,-18 28,-18 34,-6 C28,4 8,12 0,24 C-8,12 -28,4 -34,-6 C-28,-18 -8,-18 0,-6z"
+                  fill="#ffbfcc" />
+          </g>
+          <g class="petal-s" transform="rotate(90)">
+            <path d="M0,-6 C8,-18 28,-18 34,-6 C28,4 8,12 0,24 C-8,12 -28,4 -34,-6 C-28,-18 -8,-18 0,-6z"
+                  fill="#ffc7d7" />
+          </g>
+          <circle r="10" fill="#ffd7e6" />
+        </g>
+      </svg>
+    </div>
+
+    <h1 class="title">💐 Chúc Mừng Ngày Phụ Nữ Việt Nam 20/10 💐</h1>
+    <p class="subtitle">Chúc bạn luôn xinh đẹp, hạnh phúc và ngập tràn yêu thương 💖</p>
+  </main>
+
+  <!-- Audio: dùng file local trong repo: music/SON-TUNG-MTP.mp3 -->
+  <audio id="bgAudio" loop playsinline muted>
+    <source src="music/SON-TUNG-MTP" type="audio/mpeg">
+    Your browser does not support the audio element.
   </audio>
 
-  <script>
-    // Tạo hiệu ứng hoa rơi
-    const numPetals = 35;
-    for (let i = 0; i < numPetals; i++) {
-      const petal = document.createElement('div');
-      petal.classList.add('petal');
-      petal.style.left = Math.random() * 100 + 'vw';
-      petal.style.animationDuration = (8 + Math.random() * 5) + 's';
-      petal.style.animationDelay = Math.random() * 5 + 's';
-      document.body.appendChild(petal);
-    }
-
-    // Tự động phát nhạc (bypass autoplay)
-    const music = document.getElementById("bg-music");
-    document.addEventListener("click", () => music.play());
-    window.addEventListener("load", () => {
-      music.play().catch(() => {
-        console.log("Autoplay bị chặn — sẽ phát khi click đầu tiên.");
-      });
-    });
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
