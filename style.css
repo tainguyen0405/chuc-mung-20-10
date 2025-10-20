@@ -1,59 +1,94 @@
+/* reset cơ bản */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html,body { height: 100%; }
+
+/* background */
 body {
-  margin: 0;
-  padding: 0;
-  height: 100vh;
+  font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background: url('images/background.jpg') center/cover no-repeat fixed;
+  color: #fff;
   overflow: hidden;
+  position: relative;
+}
+
+/* canvas animation ở dưới cùng */
+canvas#animationCanvas {
+  position: fixed;
+  left: 0; top: 0;
+  width: 100vw; height: 100vh;
+  z-index: 0;
+  pointer-events: none; /* không chặn tương tác */
+}
+
+/* lớp overlay giúp text nổi */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+  z-index: 1;
+}
+
+/* nội dung chính ở giữa */
+.content {
+  position: relative;
+  z-index: 2;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 2rem;
+}
+
+/* tiêu đề */
+.title {
+  font-size: clamp(1.6rem, 3.5vw, 3rem);
+  color: #ffdff0;
+  text-shadow: 0 6px 24px rgba(255, 105, 180, 0.25), 0 0 6px rgba(255, 182, 193, 0.7);
+  letter-spacing: 1px;
+  line-height: 1.05;
+  margin-bottom: 8px;
+  animation: glow 2.5s ease-in-out infinite alternate;
+}
+
+/* phụ đề */
+.subtitle {
+  font-size: clamp(1rem, 2.2vw, 1.25rem);
+  color: rgba(255,255,255,0.92);
+  text-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* lyric */
+.lyric { font-size: clamp(0.9rem, 1.8vw, 1.05rem); color: rgba(255,255,255,0.9); }
+
+/* nút nhạc (gọn, đẹp) */
+.music-btn {
+  position: fixed;
+  top: 18px; right: 18px;
+  z-index: 3;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: url('images/background.jpg') center/cover no-repeat;
-  color: white;
-  font-family: 'Poppins', sans-serif;
-  text-align: center;
-}
-
-.title {
-  font-size: 2.5rem;
-  color: pink;
-  text-shadow: 0 0 20px #ff99cc;
-  animation: glow 2s ease-in-out infinite alternate;
-}
-
-.message {
-  font-size: 1.2rem;
-  margin-top: 10px;
-  opacity: 0.9;
-}
-
-.play-btn {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  background: rgba(255, 182, 193, 0.8);
+  width: 56px; height: 56px;
+  border-radius: 50%;
   border: none;
-  border-radius: 25px;
-  padding: 10px 15px;
-  font-size: 16px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.18), rgba(255,255,255,0.06));
+  backdrop-filter: blur(6px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
   cursor: pointer;
-  box-shadow: 0 0 15px pink;
-  transition: all 0.3s ease;
 }
+.music-btn img { width: 28px; height: 28px; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.4)); }
 
-.play-btn:hover {
-  background: #ff99cc;
-}
-
+/* hiệu ứng tiêu đề */
 @keyframes glow {
-  from { text-shadow: 0 0 10px #ffb6c1; }
-  to { text-shadow: 0 0 30px #ff69b4, 0 0 50px #ff1493; }
+  from { text-shadow: 0 6px 18px rgba(255,183,197,0.25); transform: translateY(0); }
+  to   { text-shadow: 0 8px 34px rgba(255,105,180,0.35); transform: translateY(-4px); }
 }
 
-canvas {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
+/* responsiveness */
+@media (max-width:600px) {
+  .music-btn { width: 48px; height: 48px; }
+  .title { padding: 0 12px; }
 }
