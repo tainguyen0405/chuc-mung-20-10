@@ -1,29 +1,35 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Chúc Mừng 20/10 💐</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="container">
+  <!-- Canvas animation nằm dưới cùng -->
+  <canvas id="animationCanvas" aria-hidden="true"></canvas>
+
+  <!-- Overlay mờ để chữ nổi -->
+  <div class="overlay"></div>
+
+  <!-- Nội dung chính -->
+  <main class="content" role="main">
     <h1 class="title">💐 Chúc Mừng Ngày Phụ Nữ Việt Nam 20/10 💐</h1>
-    <p class="message">
-      Chúc bạn một ngày thật xinh đẹp, rạng rỡ và ngập tràn yêu thương 💖<br>
-      “Có chắc đây là yêu...” 🎵
-    </p>
-  </div>
+    <p class="subtitle">Chúc bạn một ngày thật xinh đẹp, rạng rỡ và ngập tràn yêu thương 💖</p>
+    <p class="lyric">“Có chắc đây là yêu...” 🎵</p>
+  </main>
 
-  <!-- Nút phát nhạc -->
-  <button id="playButton" class="play-btn">🎶 Phát nhạc</button>
+  <!-- Nút điều khiển nhạc (hiện/ẩn) -->
+  <button id="musicBtn" class="music-btn" aria-label="Bật / tắt nhạc">
+    <img id="musicIcon" src="https://cdn-icons-png.flaticon.com/512/727/727245.png" alt="Play icon" />
+  </button>
 
-  <!-- Nhạc -->
-  <audio id="bgMusic" loop autoplay>
-    <source src="music/SON-TUNG-MTP.mp3" type="audio/mpeg" />
+  <!-- Audio: autoplay muted để tránh bị chặn; sau khi người dùng tương tác sẽ unmute -->
+  <audio id="bgMusic" loop playsinline>
+    <source src="music/SON-TUNG-MTP-CO-CHAC-YEU-LA-DAY.mp3" type="audio/mpeg" />
+    Your browser does not support the audio element.
   </audio>
-
-  <canvas id="animationCanvas"></canvas>
 
   <script src="script.js"></script>
 </body>
