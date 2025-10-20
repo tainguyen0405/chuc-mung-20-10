@@ -3,6 +3,9 @@ const messageBox = document.getElementById("message-box");
 const closeBtn = document.querySelector(".close-btn");
 const bgMusic = document.getElementById("bg-music");
 
+// Ban đầu hộp thư ẩn
+messageBox.classList.add("hidden");
+
 // Khi nhấn dòng chữ -> hiện hộp thư
 openBtn.addEventListener("click", () => {
   messageBox.classList.remove("hidden");
@@ -15,18 +18,22 @@ closeBtn.addEventListener("click", () => {
   setTimeout(() => messageBox.classList.add("hidden"), 400);
 });
 
-// Tự động phát nhạc khi mở trang (fix autoplay)
+// Tự động phát nhạc khi mở trang (fix chuẩn cho Chrome, Safari, Edge)
 window.addEventListener("load", () => {
-  bgMusic.muted = true;
-  const playMusic = () => {
+  const tryPlay = () => {
     bgMusic.muted = false;
     bgMusic.play().catch(() => {});
   };
 
+  // Thử bật nhạc im lặng trước để “unlock”
+  bgMusic.muted = true;
   bgMusic.play().then(() => {
-    bgMusic.muted = false;
+    setTimeout(() => {
+      bgMusic.muted = false;
+      bgMusic.play();
+    }, 300);
   }).catch(() => {
-    document.body.addEventListener("click", playMusic, { once: true });
+    document.body.addEventListener("click", tryPlay, { once: true });
   });
 });
 
