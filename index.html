@@ -1,65 +1,52 @@
 <!doctype html>
 <html lang="vi">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Chúc Mừng 20/10 — Surprise</title>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Chúc Mừng 20/10 — Cinematic</title>
 
-  <!-- preload font -->
+  <!-- font -->
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
-  <!-- canvas layers -->
+  <!-- Canvas layers -->
   <canvas id="petalCanvas" aria-hidden="true"></canvas>
   <canvas id="sparkleCanvas" aria-hidden="true"></canvas>
   <canvas id="confettiCanvas" aria-hidden="true"></canvas>
 
   <!-- overlays -->
   <div class="vignette" aria-hidden="true"></div>
-  <div class="lensflare" aria-hidden="true"></div>
+  <div class="lensflare" id="lensflare" aria-hidden="true"></div>
 
-  <main class="card" id="mainCard" role="main">
+  <!-- main UI -->
+  <main class="card" role="main" id="mainCard">
     <div class="title-wrap" id="titleWrap">
-      <h1 class="title" id="mainTitle" aria-label="Chúc Mừng Ngày Phụ Nữ Việt Nam 20/10">
-        <!-- letters will be injected by JS for per-letter animation -->
-      </h1>
-      <div class="title-reflection" id="titleReflection" aria-hidden="true"></div>
+      <h1 class="title" id="mainTitle">Chúc Mừng Ngày Phụ Nữ Việt Nam 20/10</h1>
+      <div class="title-reflection" aria-hidden="true">Chúc Mừng Ngày Phụ Nữ Việt Nam 20/10</div>
     </div>
 
-    <p class="subtitle" id="subtitle">Chúc bạn luôn xinh đẹp, hạnh phúc và ngập tràn yêu thương 💖</p>
-
-    <!-- user hint to trigger surprise -->
+    <!-- hint -->
     <button id="tapHint" class="tap-hint">Bấm vào màn hình để có bất ngờ ✨</button>
   </main>
 
-  <!-- modal "thiệp" surprise (hidden until click) -->
-  <div id="cardModal" class="card-modal" aria-hidden="true">
-    <div class="card-inner" role="dialog" aria-modal="true">
-      <button class="close-btn" id="closeModal" aria-label="Đóng">✕</button>
-      <div class="greeting-visual">
-        <!-- decorative: small flower -->
-        <svg width="120" height="120" viewBox="0 0 120 120" aria-hidden="true">
-          <g transform="translate(60,60)">
-            <path d="M0,-6 C8,-18 28,-18 34,-6 C28,4 8,12 0,24 C-8,12 -28,4 -34,-6 C-28,-18 -8,-18 0,-6z" fill="#ff9fb2"/>
-            <circle r="10" fill="#ffd7e6" />
-          </g>
-        </svg>
-      </div>
-      <h2 class="modal-title">Lời chúc</h2>
-      <p class="modal-text" id="greetingText">
-        <!-- will be filled on surprise -->
-      </p>
-      <div class="modal-actions">
-        <button id="shareBtn" class="primary">Chia sẻ thiệp này</button>
-        <button id="okBtn" class="secondary">Ok</button>
+  <!-- surprise card (hidden until triggered) -->
+  <div id="surpriseOverlay" class="surprise-overlay" aria-hidden="true">
+    <div class="surprise-card" id="surpriseCard" role="dialog" aria-labelledby="surpriseTitle">
+      <button class="close-btn" id="closeSurprise" aria-label="Đóng">&times;</button>
+      <h2 id="surpriseTitle" class="surprise-title">Lời chúc dành cho bạn</h2>
+      <p id="surpriseMessage" class="surprise-message" aria-live="polite"></p>
+      <div class="surprise-actions">
+        <button id="shareBtn" class="action-btn">Sao chép lời chúc</button>
+        <button id="closeBtn" class="action-btn">Đóng</button>
       </div>
     </div>
   </div>
 
-  <!-- background music (optional) - keep simple: will play on gesture -->
+  <!-- audio (kept but no aggressive autoplay logic) -->
+  <!-- If you want music, put music/SON-TUNG-MTP.mp3 in repo; it will play on user gesture -->
   <audio id="bgAudio" loop playsinline preload="auto">
     <source src="music/SON-TUNG-MTP.mp3" type="audio/mpeg">
   </audio>
