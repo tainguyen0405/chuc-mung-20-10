@@ -3,16 +3,30 @@ const messageBox = document.getElementById("message-box");
 const closeBtn = document.querySelector(".close-btn");
 const bgMusic = document.getElementById("bg-music");
 
+// Hiển thị hộp thư khi bấm dòng chữ
 openBtn.addEventListener("click", () => {
   messageBox.classList.remove("hidden");
-  bgMusic.play().catch(()=>{});
 });
 
+// Tắt hộp thư
 closeBtn.addEventListener("click", () => {
   messageBox.classList.add("hidden");
 });
 
-// Hoa rơi 🌸
+// Auto play nhạc khi mở trang (vượt giới hạn autoplay của một số trình duyệt)
+window.addEventListener('load', () => {
+  bgMusic.muted = true;
+  bgMusic.play().then(() => {
+    bgMusic.muted = false;
+  }).catch(() => {
+    document.body.addEventListener('click', () => {
+      bgMusic.muted = false;
+      bgMusic.play();
+    }, { once: true });
+  });
+});
+
+// Hoa rơi
 const canvas = document.getElementById('flower-canvas');
 const ctx = canvas.getContext('2d');
 canvas.width = window.innerWidth;
