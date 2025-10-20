@@ -3,22 +3,28 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Chúc Mừng 20/10 </title>
+  <title>Chúc Mừng 20/10</title>
   <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
-  <!-- Canvas cho petals -->
-  <canvas id="petalCanvas" aria-hidden="true"></canvas>
+  <!-- Canvas cho hiệu ứng hoa rơi -->
+  <canvas id="petalCanvas"></canvas>
+
   <div class="overlay"></div>
 
-  <main class="card" role="main">
-    <div class="flower-3d" aria-hidden="true">
-      <!-- inline SVG flower (no external image needed) -->
+  <main class="card">
+    <div class="flower-3d">
       <svg viewBox="0 0 120 120" width="140" height="140" class="flower-svg">
         <g transform="translate(60,60)">
-          <g transform="rotate(0)"><path d="M0,-6 C8,-18 28,-18 34,-6 C28,4 8,12 0,24 C-8,12 -28,4 -34,-6 C-28,-18 -8,-18 0,-6z" fill="#ff9fb2"/></g>
-          <g transform="rotate(45)"><path d="M0,-6 C8,-18 28,-18 34,-6 C28,4 8,12 0,24 C-8,12 -28,4 -34,-6 C-28,-18 -8,-18 0,-6z" fill="#ffbfcc"/></g>
-          <g transform="rotate(90)"><path d="M0,-6 C8,-18 28,-18 34,-6 C28,4 8,12 0,24 C-8,12 -28,4 -34,-6 C-28,-18 -8,-18 0,-6z" fill="#ffc7d7"/></g>
+          <g transform="rotate(0)">
+            <path d="M0,-6 C8,-18 28,-18 34,-6 C28,4 8,12 0,24 C-8,12 -28,4 -34,-6 C-28,-18 -8,-18 0,-6z" fill="#ff9fb2"/>
+          </g>
+          <g transform="rotate(45)">
+            <path d="M0,-6 C8,-18 28,-18 34,-6 C28,4 8,12 0,24 C-8,12 -28,4 -34,-6 C-28,-18 -8,-18 0,-6z" fill="#ffbfcc"/>
+          </g>
+          <g transform="rotate(90)">
+            <path d="M0,-6 C8,-18 28,-18 34,-6 C28,4 8,12 0,24 C-8,12 -28,4 -34,-6 C-28,-18 -8,-18 0,-6z" fill="#ffc7d7"/>
+          </g>
           <circle r="10" fill="#ffd7e6" />
         </g>
       </svg>
@@ -28,13 +34,12 @@
     <p class="subtitle">Chúc bạn luôn xinh đẹp, hạnh phúc và ngập tràn yêu thương 💖</p>
   </main>
 
-  <!-- Audio: đặt file MP3 vào thư mục music/ với đúng tên dưới -->
-  <audio id="bgAudio" loop playsinline muted>
+  <!-- Nhạc nền -->
+  <audio id="bgAudio" loop playsinline>
     <source src="music/SON-TUNG-MTP.mp3" type="audio/mpeg">
-    Trình duyệt của bạn không hỗ trợ audio.
+    Trình duyệt không hỗ trợ audio.
   </audio>
 
   <script src="script.js"></script>
 </body>
 </html>
-
