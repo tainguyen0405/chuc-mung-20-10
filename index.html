@@ -3,23 +3,92 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>💐 Chúc Mừng Ngày Phụ Nữ Việt Nam 20/10 💐</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Chúc Mừng Ngày Phụ Nữ Việt Nam 20/10 🌸</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      text-align: center;
+      background: linear-gradient(to bottom right, #fff7f8, #ffeaea);
+      overflow: hidden;
+    }
+
+    h1 {
+      margin-top: 40px;
+      color: #ff4b77;
+      font-size: 2.3rem;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    p {
+      color: #ff7aa4;
+      font-size: 1.1rem;
+      animation: fadeIn 3s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Hoa rơi */
+    .flower {
+      position: absolute;
+      width: 25px;
+      height: 25px;
+      background-image: url('https://cdn-icons-png.flaticon.com/512/616/616408.png');
+      background-size: cover;
+      opacity: 0.9;
+      animation: fall 8s linear infinite;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-50px) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  </style>
 </head>
 <body>
-  <canvas id="animationCanvas"></canvas>
-  <div class="overlay"></div>
+  <h1>💐 Chúc Mừng Ngày Phụ Nữ Việt Nam 20/10 💐</h1>
+  <p>Chúc bạn một ngày thật xinh đẹp, rạng rỡ và ngập tràn yêu thương 💖<br>🎶</p>
 
-  <main class="content">
-    <h1 class="title">💖 Chúc Mừng Ngày Phụ Nữ Việt Nam 20/10 💖</h1>
-    <p class="subtitle">Chúc bạn một ngày thật xinh đẹp, rạng rỡ và ngập tràn yêu thương 🌸</p>
-  </main>
-
-  <audio id="bgMusic" autoplay loop muted>
-    <source src="music/SON-TUNG-MTP" type="audio/mpeg">
+  <!-- Nhạc tự động phát -->
+  <audio id="bgMusic" autoplay loop>
+    <source src="https://cdn.pixabay.com/audio/2022/02/28/audio_927d09cfeb.mp3" type="audio/mpeg">
   </audio>
 
-  <script src="script.js"></script>
+  <script>
+    // Tạo hiệu ứng hoa rơi
+    function createFlower() {
+      const flower = document.createElement('div');
+      flower.classList.add('flower');
+      flower.style.left = Math.random() * 100 + 'vw';
+      flower.style.animationDuration = (6 + Math.random() * 4) + 's';
+      flower.style.opacity = Math.random();
+      document.body.appendChild(flower);
+
+      setTimeout(() => flower.remove(), 9000);
+    }
+
+    setInterval(createFlower, 400);
+
+    // Fix autoplay cho trình duyệt
+    window.addEventListener('load', () => {
+      const audio = document.getElementById('bgMusic');
+      const playPromise = audio.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          // Nếu trình duyệt chặn, tự bật sau 1s
+          setTimeout(() => audio.play(), 1000);
+        });
+      }
+    });
+  </script>
 </body>
 </html>
-
