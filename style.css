@@ -1,71 +1,107 @@
-html, body {
-  height: 100%;
-  margin: 0;
-  overflow: hidden;
-  background: linear-gradient(180deg, #ffdde1 0%, #ee9ca7 100%);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+/* style.css - cinematic 3D title + petals + subtle UI */
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+  background: linear-gradient(180deg,#fff7fa 0%, #ffeef3 100%);
+  color:#ff2e6a;
+  overflow:hidden;
+  position:relative;
 }
 
-canvas {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 0;
+/* canvases */
+canvas{position:fixed;left:0;top:0;width:100vw;height:100vh;z-index:0;pointer-events:none;display:block}
+#sparkleCanvas{z-index:0}
+#petalCanvas{z-index:0}
+
+.overlay{
+  position:fixed;inset:0;background:linear-gradient(rgba(255,255,255,0.12), rgba(255,255,255,0.08));
+  z-index:1;backdrop-filter: blur(4px);
 }
 
-.overlay {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(255,255,255,0.05);
-  backdrop-filter: blur(3px);
-  z-index: 1;
+/* main content */
+.card{
+  position:relative;z-index:3;min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:2rem;
 }
 
-.card {
+/* Title container for depth/perspective */
+.title-wrap{
+  perspective: 900px;
+  margin-bottom: 12px;
+  transform-style: preserve-3d;
+}
+
+/* cinematic 3D title */
+.title{
+  font-size: clamp(1.8rem, 5.5vw, 4rem);
+  color: #ff2f72;
+  letter-spacing: 1px;
+  font-weight: 800;
+  line-height:1;
+  transform-origin: center;
+  display:inline-block;
+  padding: 12px 22px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border-radius: 12px;
+  box-shadow: 0 30px 80px rgba(255,80,140,0.12), 0 8px 30px rgba(0,0,0,0.06);
+  text-transform: none;
   position: relative;
-  text-align: center;
-  color: white;
-  z-index: 2;
-  top: 40%;
-  transform: translateY(-50%);
+  z-index: 3;
+  -webkit-font-smoothing: antialiased;
+  animation: title-entry 1500ms cubic-bezier(.22,.9,.27,1) both, title-breathe 4.5s ease-in-out infinite;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  /* 3D layers via text-shadow for cinematic depth */
+  text-shadow:
+    0 3px 0 rgba(255,255,255,0.6),
+    0 8px 26px rgba(255,80,140,0.18),
+    0 2px 6px rgba(0,0,0,0.06);
 }
 
-.flower-3d {
-  animation: rotateFlower 10s linear infinite;
-  display: inline-block;
+/* subtle reflection below the title */
+.title-reflection{
+  margin-top: 10px;
+  font-size: clamp(1.8rem,5.5vw,4rem);
+  color: rgba(255,80,140,0.12);
+  transform: translateY(8px) scaleY(-1);
+  filter: blur(6px);
+  z-index:2;
+  pointer-events: none;
 }
 
-@keyframes rotateFlower {
-  from { transform: rotateY(0deg) rotateX(0deg); }
-  to { transform: rotateY(360deg) rotateX(360deg); }
+/* cinematic entry animation (drop from top + rotate 3D) */
+@keyframes title-entry {
+  0%{ transform: translateY(-220px) rotateX(65deg) scale(0.96); opacity:0 }
+  60%{ transform: translateY(6px) rotateX(0deg) scale(1.02); opacity:1 }
+  100%{ transform: translateY(0) rotateX(0) scale(1); opacity:1 }
 }
 
-.title {
-  font-size: 2.8rem;
-  font-weight: bold;
-  text-shadow: 0 0 15px rgba(255,255,255,0.8), 0 0 30px #ff99bb;
-  animation: dropDown 2s ease-out, float 4s ease-in-out infinite alternate;
+/* breathing micro-animation */
+@keyframes title-breathe {
+  0%{ transform: translateZ(0) }
+  50%{ transform: translateZ(6px) }
+  100%{ transform: translateZ(0) }
 }
 
-@keyframes dropDown {
-  0% { transform: translateY(-300px) rotateX(90deg); opacity: 0; }
-  60% { transform: translateY(0) rotateX(0); opacity: 1; }
-  100% { transform: translateY(0); }
+.subtitle{
+  color: rgba(255,50,110,0.9);
+  font-size: clamp(0.95rem, 1.6vw, 1.25rem);
+  margin-top: 12px;
+  z-index:3;
+  text-shadow: 0 6px 18px rgba(255,150,180,0.08);
 }
 
-@keyframes float {
-  0% { transform: translateY(0) rotateY(0deg); }
-  100% { transform: translateY(10px) rotateY(10deg); }
+/* small hint for user (hidden by default) */
+.hint{
+  position: fixed; left: 50%; transform: translateX(-50%); bottom: 28px;
+  background: rgba(255,255,255,0.12); color: #fff; padding: 8px 12px; border-radius: 20px;
+  backdrop-filter: blur(6px); z-index: 6; font-size: 0.95rem; display:none;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.15);
 }
 
-.subtitle {
-  font-size: 1.5rem;
-  text-shadow: 0 0 10px rgba(255,255,255,0.7);
-  animation: fadeIn 3s ease-in-out;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+/* responsive tweaks */
+@media (max-width:600px){
+  .title{font-size: clamp(1.3rem, 9vw, 2.2rem); padding: 8px 14px}
+  .title-reflection{font-size: clamp(1.3rem, 9vw, 2.2rem)}
+  .subtitle{font-size: 0.95rem}
 }
