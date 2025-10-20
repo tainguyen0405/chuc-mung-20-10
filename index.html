@@ -1,31 +1,29 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Chúc Mừng 20/10 💐</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- Nhạc nền -->
-  <audio id="bg-music" autoplay loop>
-    <source src="music/SON-TUNG-MTP-CO-CHAC-YEU-LA-DAY.mp3" type="audio/mpeg">
-  </audio>
-
-  <!-- Nút bật/tắt nhạc -->
-  <button class="music-btn" onclick="toggleMusic()">
-    <img id="music-icon" src="https://cdn-icons-png.flaticon.com/512/727/727245.png" alt="Music">
-  </button>
-
-  <div class="overlay"></div>
-
-  <div class="message">
-    <h1>💐 Chúc Mừng Ngày Phụ Nữ Việt Nam 20/10 💐</h1>
-    <p>Chúc bạn một ngày thật xinh đẹp, rạng rỡ và ngập tràn yêu thương 💖</p>
-    <p>“Có chắc đây là yêu...” 🎵</p>
+  <div class="container">
+    <h1 class="title">💐 Chúc Mừng Ngày Phụ Nữ Việt Nam 20/10 💐</h1>
+    <p class="message">
+      Chúc bạn một ngày thật xinh đẹp, rạng rỡ và ngập tràn yêu thương 💖<br>
+      “Có chắc đây là yêu...” 🎵
+    </p>
   </div>
 
-  <div class="floating-hearts"></div>
+  <!-- Nút phát nhạc -->
+  <button id="playButton" class="play-btn">🎶 Phát nhạc</button>
+
+  <!-- Nhạc -->
+  <audio id="bgMusic" loop autoplay>
+    <source src="music/SON-TUNG-MTP.mp3" type="audio/mpeg" />
+  </audio>
+
+  <canvas id="animationCanvas"></canvas>
 
   <script src="script.js"></script>
 </body>
