@@ -1,4 +1,4 @@
-/* style.css - normalized + fallbacks for cross-browser consistency */
+/* style.css - cinematic enhancements + "bấm" hint */
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%}
 body{
@@ -11,69 +11,62 @@ body{
   -moz-osx-font-smoothing:grayscale;
 }
 
-/* canvases: always full-viewport and on same stacking context */
-canvas{
-  position:fixed;
-  left:0; top:0;
-  width:100vw; height:100vh;
-  z-index:0;
-  pointer-events:none;
-  display:block;
-}
+/* canvases stacked under content */
+canvas{position:fixed;left:0;top:0;width:100vw;height:100vh;pointer-events:none;display:block}
+#confettiCanvas { z-index: 4; } /* confetti above petals but under UI */
+#sparkleCanvas { z-index: 0; }
+#petalCanvas { z-index: 0; }
 
-/* overlay: use backdrop-filter when available, otherwise semi-opaque fallback */
+/* overlay layer */
 .overlay{
-  position:fixed; inset:0; z-index:1;
-  background: rgba(255,255,255,0.08);
-  /* preferred: blur background */
-  -webkit-backdrop-filter: blur(4px);
-  backdrop-filter: blur(4px);
-  /* fallback : slightly lighter if no blur */
-  background: linear-gradient(rgba(255,255,255,0.07), rgba(255,255,255,0.05));
+  position:fixed;inset:0;z-index:1;
+  background: linear-gradient(rgba(255,255,255,0.06), rgba(255,255,255,0.04));
+  -webkit-backdrop-filter: blur(3px);
+  backdrop-filter: blur(3px);
 }
 
-/* main content centered consistently */
+/* main UI */
 .card{
-  position:relative; z-index:3;
-  min-height:100vh;
+  position:relative; z-index:5; min-height:100vh;
   display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center;
-  padding:2rem;
-  transform: translateZ(0); /* encourage GPU layer for stability */
-  will-change: transform;
+  padding:2rem; pointer-events:auto;
 }
 
-/* Title */
+/* cinematic title */
 .title-wrap{ perspective:900px; transform-style:preserve-3d; margin-bottom:12px; }
-
 .title{
-  font-size: clamp(1.8rem, 5.5vw, 4rem);
+  font-size: clamp(1.9rem, 5.5vw, 4.4rem);
   color:#ff2f72;
   font-weight:800;
   letter-spacing:0.6px;
   line-height:1;
   display:inline-block;
-  padding:14px 28px;
-  border-radius:12px;
-  text-shadow: 0 8px 30px rgba(255,80,140,0.14), 0 3px 8px rgba(0,0,0,0.06);
-  background: rgba(255,255,255,0.02);
-  animation: title-entry 1200ms cubic-bezier(.22,.9,.27,1) both, title-breathe 4.5s ease-in-out infinite;
+  padding:16px 36px;
+  border-radius:14px;
+  text-shadow: 0 18px 40px rgba(255,80,140,0.14), 0 6px 20px rgba(0,0,0,0.06);
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
   transform-style: preserve-3d;
   backface-visibility: hidden;
-  -webkit-font-smoothing: antialiased;
+  animation: title-entry 1100ms cubic-bezier(.22,.9,.27,1) both, title-breathe 4.5s ease-in-out infinite;
 }
 
-/* reflection: subtle and blurred across browsers */
+/* cinematic shimmer (applied on surprise) */
+.title.shimmer {
+  animation: title-surprise 900ms cubic-bezier(.2,.9,.3,1) both;
+  box-shadow: 0 40px 120px rgba(255,60,130,0.22), 0 8px 30px rgba(0,0,0,0.07);
+}
+
+/* reflection */
 .title-reflection{
   margin-top:10px;
-  font-size: clamp(1.8rem,5.5vw,4rem);
+  font-size: clamp(1.9rem,5.5vw,4.4rem);
   color: rgba(255,80,140,0.10);
   transform: translateY(8px) scaleY(-1);
   filter: blur(6px);
   pointer-events:none;
-  user-select:none;
 }
 
-/* animations */
+/* subtle entry */
 @keyframes title-entry {
   0%{ transform: translateY(-220px) rotateX(60deg) scale(.98); opacity:0; }
   60%{ transform: translateY(8px) rotateX(0) scale(1.01); opacity:1; }
@@ -82,26 +75,48 @@ canvas{
 @keyframes title-breathe {
   0%{ transform: translateZ(0) } 50%{ transform: translateZ(6px) } 100%{ transform: translateZ(0) }
 }
+@keyframes title-surprise {
+  0% { transform: scale(1) rotateX(0) translateZ(0); filter: blur(0px); }
+  25% { transform: scale(1.06) rotateX(2deg) translateZ(12px); filter: blur(0); text-shadow: 0 30px 80px rgba(255,120,170,0.18); }
+  60% { transform: scale(0.98) rotateX(-2deg) translateZ(4px); }
+  100% { transform: scale(1) rotateX(0) translateZ(0); }
+}
 
 /* subtitle */
 .subtitle{
   color: rgba(255,50,110,0.95);
   font-size: clamp(0.95rem, 1.6vw, 1.25rem);
   margin-top:14px;
-  z-index:3;
   text-shadow: 0 6px 18px rgba(255,150,180,0.06);
 }
 
-/* small hint for user */
-.hint{
-  position: fixed; left:50%; transform: translateX(-50%); bottom:28px;
-  background: rgba(0,0,0,0.45); color:#fff; padding:8px 12px; border-radius:18px;
-  z-index:6; font-size:0.95rem; display:none; backdrop-filter: blur(4px);
+/* TAP hint */
+.tap-hint{
+  margin-top: 18px;
+  font-size: 1rem;
+  color: rgba(255,255,255,0.95);
+  background: rgba(255,40,110,0.06);
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.06);
+  box-shadow: 0 8px 30px rgba(255,80,140,0.06);
+  cursor: pointer;
+  user-select: none;
+  transition: transform .18s ease, opacity .25s ease;
 }
 
-/* responsive tweaks */
+/* tap hint pulse */
+.tap-hint.pulse { animation: tapPulse 1800ms ease-in-out infinite; }
+@keyframes tapPulse {
+  0% { transform: translateY(0) scale(1); opacity:1; }
+  50% { transform: translateY(-6px) scale(1.02); opacity:0.95; }
+  100% { transform: translateY(0) scale(1); opacity:1; }
+}
+
+/* responsive */
 @media (max-width:600px){
-  .title{ padding:10px 16px; font-size: clamp(1.25rem,9vw,2.2rem) }
-  .title-reflection{ font-size: clamp(1.25rem,9vw,2.2rem) }
+  .title{ padding:10px 16px; font-size: clamp(1.3rem,9vw,2.6rem) }
+  .title-reflection{ font-size: clamp(1.3rem,9vw,2.6rem) }
   .subtitle{ font-size: 0.95rem }
+  .tap-hint{ font-size: 0.95rem; padding:8px 12px }
 }
