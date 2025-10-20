@@ -1,29 +1,29 @@
-const openBtn = document.getElementById("open-surprise");
 const messageBox = document.getElementById("message-box");
 const closeBtn = document.querySelector(".close-btn");
 const bgMusic = document.getElementById("bg-music");
 
-// 🔹 Ban đầu ẩn hộp thư
+// Ẩn hộp thư lúc đầu
 messageBox.classList.add("hidden");
 
-// 🔹 Khi nhấn dòng chữ -> hiện hộp thư
-openBtn.addEventListener("click", () => {
+// Khi bấm vào màn hình -> hiện hộp thư
+document.body.addEventListener("click", () => {
   messageBox.classList.remove("hidden");
 });
 
-// 🔹 Khi nhấn dấu X -> đóng hộp thư
-closeBtn.addEventListener("click", () => {
+// Khi nhấn dấu X -> đóng hộp thư
+closeBtn.addEventListener("click", (e) => {
+  e.stopPropagation();
   messageBox.classList.add("hidden");
 });
 
-// 🔹 Tự động phát nhạc khi mở web (fix cho Chrome, Safari, Edge)
+// Tự động bật nhạc khi mở trang
 window.addEventListener("load", () => {
   const tryPlay = () => {
     bgMusic.muted = false;
     bgMusic.play().catch(() => {});
   };
 
-  // Cố gắng bật nhạc tự động
+  // Thử autoplay
   bgMusic.muted = true;
   bgMusic.play().then(() => {
     setTimeout(() => {
@@ -31,12 +31,12 @@ window.addEventListener("load", () => {
       bgMusic.play();
     }, 300);
   }).catch(() => {
-    // Nếu trình duyệt chặn autoplay → bật sau khi user click
+    // Nếu bị chặn autoplay, bật sau khi user bấm
     document.body.addEventListener("click", tryPlay, { once: true });
   });
 });
 
-// 🔹 Hiệu ứng hoa rơi
+// Hiệu ứng hoa rơi
 const canvas = document.getElementById('flower-canvas');
 const ctx = canvas.getContext('2d');
 canvas.width = window.innerWidth;
