@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chúc Mừng 20/10</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <audio id="bg-music" src="SƠN-TÙNG-M-TP.mp3" preload="auto"></audio>
+
+  <!-- Hint mở đầu -->
+  <div id="start-hint">
+    <p>Bấm vào màn hình, có bất ngờ 💗</p>
+  </div>
+
+  <!-- Hiệu ứng chuyển cảnh cinematic -->
+   
+  <div id="cinematic-flash"></div>
+
+  <!-- Lời chúc chính -->
+  <div id="message" class="hidden">
+    <h1 class="glow sweep">💐Chúc Mừng Ngày Phụ Nữ Việt Nam 20/10 💐</h1>
+    <p id="tagline">💖💐💖💐💖💐💖💐💖💐💖💐💖💐💖💐💖💐💖💐💖</p>
+    <p id="messageText"></p>
+  </div>
+
+  <!-- Nút gửi hoa -->
+  <button id="flowerBtn" class="hidden">💐 Tặng hoa 💐</button>
+
+   <!-- Canvas hiệu ứng -->
+  <canvas id="fallingCanvas"></canvas>  
+  <canvas id="flowerCanvas"></canvas>
+
+  <!-- Nút xem điều cuối cùng -->
+  <button id="hintBtn" class="hidden">💝 Xem điều cuối cùng 💝</button>
+
+  <!-- Màn kết -->
+  <div id="finalScene">
+    <canvas id="sakuraCanvas"></canvas>
+    <div class="glow-burst"></div>
+    <div class="envelope">
+      <div class="envelope-top"></div>
+      <div class="envelope-bottom">
+        <div class="letter">
+          <p>💌 Cảm ơn vì đã xem và mong bạn gặp nhiều may mắn 💖</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

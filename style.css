@@ -1,0 +1,530 @@
+@media (max-width: 768px) {
+  body {
+    overflow: hidden;
+    font-size: 14px;
+  }
+
+  #message h1 {
+    font-size: 1.6rem;
+    letter-spacing: 2px;
+  }
+
+  #message p, #tagline {
+    font-size: 1rem;
+  }
+
+  #flowerBtn, #hintBtn {
+    padding: 10px 20px;
+    font-size: 1rem;
+  }
+
+  .envelope {
+    width: 220px;
+    height: 150px;
+  }
+
+  .letter p {
+    font-size: 1rem;
+  }
+}
+
+body {
+  margin: 0;
+  height: 100vh;
+  overflow: hidden;
+  font-family: 'Poppins', sans-serif;
+  background: radial-gradient(circle at bottom, #ffdee9 0%, #b5fffc 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  perspective: 1000px;
+  transition: transform 0.1s ease;
+}
+
+/* 🌸 Hint mở đầu cinematic */
+#start-hint {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.9);
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #ff0099;
+  z-index: 10;
+  user-select: none;
+  opacity: 0;
+  animation: hintEnter 1.5s ease forwards, hintGlow 2.5s ease-in-out infinite alternate, hintFloat 4s ease-in-out infinite;
+}
+
+/* ✨ Chữ bên trong hint (ánh sáng quét) */
+#start-hint p {
+  position: relative;
+  display: inline-block;
+  background: linear-gradient(90deg, #ff77cc 0%, #ffffff 50%, #ff77cc 100%);
+  background-size: 200%;
+  background-clip: text;     
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: lightSweep 3s linear infinite;
+}
+
+/* Hiệu ứng hint xuất hiện (fade + scale) */
+@keyframes hintEnter {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.7);
+    filter: blur(4px);
+  }
+  70% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.05);
+    filter: blur(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+/* Hiệu ứng sáng mềm */
+@keyframes hintGlow {
+  from {
+    text-shadow: 0 0 10px #ff55cc, 0 0 25px #ff77dd, 0 0 40px #ff99ff;
+  }
+  to {
+    text-shadow: 0 0 15px #ff88ee, 0 0 35px #ffaaee, 0 0 50px #ffe6ff;
+  }
+}
+
+/* Ánh sáng quét qua chữ */
+@keyframes lightSweep {
+  0% { background-position: 200%; }
+  100% { background-position: -200%; }
+}
+
+/* Lắc nhẹ (floating) để hint có cảm giác sống */
+@keyframes hintFloat {
+  0%, 100% { transform: translate(-50%, -50%) translateY(0) scale(1); }
+  50% { transform: translate(-50%, -50%) translateY(-10px) scale(1.03); }
+}
+
+/* 🌠 Hiệu ứng chuyển cảnh cinematic */
+#cinematic-flash {
+  position: fixed;
+  inset: 0;
+  background: white;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 9999;
+  transition: opacity 1s ease;
+}
+#cinematic-flash.active {
+  opacity: 1;
+  animation: flashFade 1.2s ease forwards;
+}
+@keyframes flashFade {
+  0% { opacity: 0; }
+  10% { opacity: 1; }
+  70% { opacity: 0.6; }
+  100% { opacity: 0; }
+}
+
+/* Lời chúc */
+#message {
+  position: relative;
+  text-align: center;
+  color: #ff00aa;
+  text-shadow: 0 0 20px #ff66cc;
+  z-index: 5;
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 1s ease, transform 1.2s ease;
+}
+#message.show {
+  opacity: 1;
+  transform: scale(1);
+}
+#message h1 {
+  font-size: 2.3rem;
+  margin-bottom: 1rem;
+}
+#message p {
+  font-size: 1.2rem;
+}
+
+/* Nút gửi hoa */
+#flowerBtn {
+  position: fixed;
+  bottom: 40px;
+  padding: 14px 25px;
+  background: linear-gradient(45deg, #ff5f9e, #ffa6c9);
+  border: none;
+  border-radius: 40px;
+  font-size: 1.1rem;
+  color: white;
+  cursor: pointer;
+  z-index: 10;
+  box-shadow: 0 0 20px rgba(255, 105, 180, 0.6);
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+#flowerBtn.show {
+  opacity: 1;
+  transform: scale(1);
+}
+#flowerBtn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 25px rgba(255, 150, 200, 0.8);
+}
+
+/* Canvas */
+canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Hiệu ứng chữ chính */
+.glow {
+  animation: glowPulse 2s ease-in-out infinite alternate;
+}
+@keyframes glowPulse {
+  from { text-shadow: 0 0 10px #ff00cc, 0 0 20px #ff66ff; }
+  to { text-shadow: 0 0 20px #ff99cc, 0 0 40px #ff33cc; }
+}
+
+.hidden { display: none; }
+
+/* ✨ Nút xem điều cuối cùng ở góc phải đối diện */
+#hintBtn {
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  padding: 14px 25px;
+  font-size: 1.1rem;
+  background: linear-gradient(45deg, #ff99cc, #ff44aa);
+  border: none;
+  border-radius: 40px;
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 0 20px rgba(255, 100, 200, 0.6);
+  opacity: 0;
+  transform: scale(0.8);
+  transition: all 0.8s ease;
+  z-index: 1000;
+  display: none;
+}
+#hintBtn.show {
+  opacity: 1;
+  transform: scale(1);
+  display: block;
+}
+#hintBtn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 25px rgba(255, 150, 200, 0.8);
+}
+
+
+/* ✨ Tagline nhỏ fade-in dưới tiêu đề chính */
+#tagline {
+  font-size: 1.3rem;
+  color: #ff6fba;
+  text-shadow: 0 0 10px rgba(255, 150, 220, 0.6);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 2s ease, transform 2s ease;
+}
+
+/* 🌸 Hiệu ứng cinematic cho dòng chúc mừng 20/10 */
+#message h1 {
+  position: relative;
+  font-size: 2.8rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  background: linear-gradient(90deg, #fff, #ffd6f9, #ff99cc, #f17b7b);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 300%;
+  opacity: 0;
+  transform: scale(0.9) translateY(30px);
+  filter: blur(8px);
+  animation:
+    cinematicEnter 3.2s ease-out forwards,
+    shimmer 8s linear infinite 3.2s,
+    titlePulse 5s ease-in-out infinite 4s;
+}
+
+/* ✨ Hiệu ứng xuất hiện mượt kiểu phim */
+@keyframes cinematicEnter {
+  0% {
+    opacity: 0;
+    transform: scale(0.8) translateY(50px);
+    filter: blur(15px);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05) translateY(0);
+    filter: blur(4px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    filter: blur(0);
+  }
+}
+
+/* 🌈 Ánh sáng quét ngang qua chữ */
+@keyframes shimmer {
+  0% { background-position: 200%; }
+  100% { background-position: -200%; }
+}
+
+/* 💫 Nhịp sáng nhẹ nhàng (pulse effect) */
+@keyframes titlePulse {
+  0%, 100% {
+    text-shadow: 0 0 15px #cd65a3, 0 0 30px #ead7d7;
+  }
+  50% {
+    text-shadow: 0 0 40px #cd65a3, 0 0 70px #ead7d7;
+  }
+}
+
+/* 🌫️ Mờ khói nền cinematic phía sau */
+#message h1::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 450px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(255,180,230,0.3) 0%, transparent 70%);
+  transform: translate(-50%, -50%) scale(0.9);
+  filter: blur(50px);
+  z-index: -1;
+  animation: mistDrift 6s ease-in-out infinite alternate;
+}
+@keyframes mistDrift {
+  0% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.6; }
+  100% { transform: translate(-48%, -52%) scale(1.1); opacity: 0.3; }
+}
+ /* 🌌 Hiệu ứng nền động trong màn kết */
+#finalScene {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at center, #ffb3ec 0%, #6d006d 100%);
+  background-size: 200% 200%;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transform: scale(1.2);
+  z-index: 10000;
+  transition: all 2s ease-in-out;
+  animation: bgCinematicMove 12s ease-in-out infinite alternate;
+}
+#finalScene.show {
+  display: flex;
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* 🌈 Nền chuyển động gradient mượt */
+@keyframes bgCinematicMove {
+  0% {
+    background-position: 0% 50%;
+    filter: brightness(1);
+  }
+  50% {
+    background-position: 100% 50%;
+    filter: brightness(1.2);
+  }
+  100% {
+    background-position: 0% 50%;
+    filter: brightness(1);
+  }
+}
+
+/* 💌 Hộp thư cinematic */
+.envelope {
+  position: relative;
+  width: 300px;
+  height: 190px;
+  background: #fff0f8;
+  border-radius: 12px;
+  box-shadow: 0 0 50px rgba(255, 180, 230, 0.8);
+  overflow: hidden;
+  transform: scale(0.7) rotateX(20deg);
+  opacity: 0;
+  animation: envelopeEnter 1.8s ease forwards 0.5s;
+}
+
+/* ✨ Hiệu ứng xuất hiện hộp thư */
+@keyframes envelopeEnter {
+  0% {
+    opacity: 0;
+    transform: scale(0.6) rotateX(30deg) translateY(100px);
+    filter: blur(10px);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.05) rotateX(10deg) translateY(0);
+    filter: blur(2px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotateX(0deg);
+    filter: blur(0);
+  }
+}
+
+/* ✉️ Nắp thư mở cinematic */
+.envelope-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #ff99cc, #ff66aa);
+  clip-path: polygon(0 0, 50% 60%, 100% 0);
+  transform-origin: top;
+  animation: envelopeOpenCinematic 2s ease forwards 2s;
+}
+
+/* 🕊️ Hiệu ứng mở nắp thư */
+@keyframes envelopeOpenCinematic {
+  0% {
+    transform: rotateX(0deg);
+  }
+  40% {
+    transform: rotateX(100deg);
+  }
+  100% {
+    transform: rotateX(180deg);
+  }
+}
+
+/* 💫 Lá thư trượt lên mượt */
+.letter {
+  position: absolute;
+  bottom: -100%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 0 40px rgba(255, 150, 220, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateY(0);
+  opacity: 0;
+  animation: letterRiseCinematic 2.5s ease-out 3s forwards;
+}
+
+/* 🌟 Hiệu ứng thư trồi lên + ánh sáng */
+@keyframes letterRiseCinematic {
+  0% {
+    bottom: -120%;
+    opacity: 0;
+    filter: blur(10px);
+    transform: scale(0.95);
+  }
+  50% {
+    bottom: -10%;
+    opacity: 1;
+    filter: blur(3px);
+    transform: scale(1.02);
+  }
+  100% {
+    bottom: 0;
+    opacity: 1;
+    filter: blur(0);
+    transform: scale(1);
+  }
+}
+
+/* 💖 Nội dung thư */
+.letter p {
+  color: #ff2fa8;
+  font-size: 1.4rem;
+  font-weight: 600;
+  text-align: center;
+  text-shadow: 0 0 15px #fff, 0 0 25px #ffb3e6;
+  animation: letterGlow 3s ease-in-out infinite alternate 4s;
+}
+
+/* ✨ Nhấp nháy ánh sáng trong thư */
+@keyframes letterGlow {
+  0% { text-shadow: 0 0 10px #fff, 0 0 25px #ffb3e6; }
+  100% { text-shadow: 0 0 25px #fff, 0 0 50px #ff66cc; }
+}
+/* 🌟 Hiệu ứng ánh sáng lan tỏa khi thư mở */
+.glow-burst {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center,
+              rgba(255, 230, 250, 0.9) 0%,
+              rgba(255, 200, 240, 0.6) 25%,
+              rgba(255, 170, 230, 0.2) 50%,
+              transparent 80%);
+  opacity: 0;
+  transform: scale(0.5);
+  filter: blur(40px);
+  animation: glowBurstExpand 3s ease-out forwards 2.2s;
+  z-index: 0;
+}
+
+/* 🌈 Animation glow lan tỏa dần rồi mờ đi */
+@keyframes glowBurstExpand {
+  0% {
+    opacity: 0;
+    transform: scale(0.4);
+    filter: blur(50px);
+  }
+  30% {
+    opacity: 1;
+    transform: scale(1.1);
+    filter: blur(35px);
+  }
+  70% {
+    opacity: 0.7;
+    transform: scale(1.4);
+    filter: blur(60px);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.6);
+    filter: blur(80px);
+  }
+}
+/* 🌸 Canvas hiệu ứng hoa rơi trong màn kết */
+#sakuraCanvas {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  animation: sakuraFadeIn 2s ease-in-out forwards;
+}
+
+@keyframes sakuraFadeIn {
+  0% { opacity: 0; filter: blur(10px); }
+  100% { opacity: 1; filter: blur(0); }
+}
+
+/* 💗 Nâng nền màn kết lên cinematic hồng tím mềm */
+#finalScene {
+  background: radial-gradient(circle at center, #ffc0e8 0%, #9b4f96 100%);
+  background-size: 200% 200%;
+  animation: bgFlow 12s ease-in-out infinite alternate;
+}
+
+@keyframes bgFlow {
+  0% { background-position: 0% 50%; filter: brightness(1); }
+  50% { background-position: 100% 50%; filter: brightness(1.2); }
+  100% { background-position: 0% 50%; filter: brightness(1); }
+}
